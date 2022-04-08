@@ -18,6 +18,7 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="src\vendor\imgui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -39,6 +40,8 @@
     <ClCompile Include="src\vendor\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+=======
+>>>>>>> 45a181618fd07af3fd48b886d6405003fa832233
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\GLFW\include\GLFW\glfw3.h">
@@ -47,6 +50,7 @@
     <ClInclude Include="libs\GLEW\include\GL\glew.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="src\vendor\imgui\imconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -74,5 +78,7 @@
     <ClInclude Include="src\vendor\imgui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+=======
+>>>>>>> 45a181618fd07af3fd48b886d6405003fa832233
   </ItemGroup>
 </Project>

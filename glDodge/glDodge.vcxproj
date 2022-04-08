@@ -118,7 +118,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+<<<<<<< HEAD
       <AdditionalIncludeDirectories>src\vendor;src;$(SolutionDir)libs\GLFW\include;$(SolutionDir)libs\GLEW\include;</AdditionalIncludeDirectories>
+=======
+      <AdditionalIncludeDirectories>src;$(SolutionDir)libs\GLFW\include;$(SolutionDir)libs\GLEW\include\;src\vendor</AdditionalIncludeDirectories>
+>>>>>>> 45a181618fd07af3fd48b886d6405003fa832233
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,7 +139,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+<<<<<<< HEAD
       <AdditionalIncludeDirectories>src\vendor;src;$(SolutionDir)libs\GLFW\include;$(SolutionDir)libs\GLEW\include;</AdditionalIncludeDirectories>
+=======
+      <AdditionalIncludeDirectories>src;$(SolutionDir)libs\GLFW\include;$(SolutionDir)libs\GLEW\include\;src\vendor</AdditionalIncludeDirectories>
+>>>>>>> 45a181618fd07af3fd48b886d6405003fa832233
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="src\vendor\imgui\imgui.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui_demo.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui_draw.cpp" />
@@ -155,10 +164,13 @@
     <ClCompile Include="src\vendor\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui_tables.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui_widgets.cpp" />
+=======
+>>>>>>> 45a181618fd07af3fd48b886d6405003fa832233
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\GLEW\include\GL\glew.h" />
     <ClInclude Include="libs\GLFW\include\GLFW\glfw3.h" />
+<<<<<<< HEAD
     <ClInclude Include="src\vendor\imgui\imconfig.h" />
     <ClInclude Include="src\vendor\imgui\imgui.h" />
     <ClInclude Include="src\vendor\imgui\imgui_impl_glfw.h" />
@@ -168,6 +180,8 @@
     <ClInclude Include="src\vendor\imgui\imstb_rectpack.h" />
     <ClInclude Include="src\vendor\imgui\imstb_textedit.h" />
     <ClInclude Include="src\vendor\imgui\imstb_truetype.h" />
+=======
+>>>>>>> 45a181618fd07af3fd48b886d6405003fa832233
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
