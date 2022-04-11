@@ -10,6 +10,9 @@
 #include <iostream>
 
 #include "SceneManager.h"
+#include "Scene.h"
+
+#include "scenes/TestScene.h"
 
 void APIENTRY GLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 {
@@ -80,17 +83,13 @@ int main()
 	std::cout << "GL_RENDERER: " << glGetString(GL_RENDERER) << "\n";
 	std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
 
-	
-	
+	game::SceneManager sm();
+	sm.RegisterScene<TestScene>("TestScene");
+
 	while (!glfwWindowShouldClose(window)) //draw loop
 	{
+		
 		glClear(GL_COLOR_BUFFER_BIT); 
-
-// 		if (currentScene == nullptr)
-// 			currentScene = game::SceneManager::GetCurrentScene();
-// 		currentScene->OnUpdate();
-// 		currentScene->OnRender();
-
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
