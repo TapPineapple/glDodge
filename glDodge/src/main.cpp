@@ -4,7 +4,32 @@
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include <iostream>
+
+#include "SceneManager.h"
+
+void APIENTRY GLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
+{
+	switch (severity)
+	{
+	case GL_DEBUG_SEVERITY_HIGH:
+		std::cout << "[OpenGL Debug HIGH] " << message << "\n";
+		_ASSERT(false);
+		break;
+	case GL_DEBUG_SEVERITY_MEDIUM:
+		std::cout << "[OpenGL Debug MEDIUM] " << message << "\n";
+		break;
+	case GL_DEBUG_SEVERITY_LOW:
+		std::cout << "[OpenGL Debug LOW] " << message << "\n";
+		break;
+	case GL_DEBUG_SEVERITY_NOTIFICATION:
+		std::cout << "[OpenGL Debug NOTIFICATION] " << message << "\n";
+		break;
+	}
+}
 
 int main()
 {
@@ -15,6 +40,7 @@ int main()
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	window = glfwCreateWindow(960, 540, "GlDodge", NULL, NULL);
@@ -33,6 +59,12 @@ int main()
 		return -1;
 	}
 
+	//init debug callback
+	glDebugMessageCallback(GLDebugCallback, nullptr);
+	glEnable(GL_DEBUG_OUTPUT);
+	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+	
+	//init imgui
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -42,20 +74,29 @@ int main()
 	ImGui_ImplOpenGL3_Init(glsl_version);
 	ImGui::StyleColorsDark();
 
-
+	//debug stuff
 	std::cout << "GL_VERSION: " << glGetString(GL_VERSION) << "\n";
 	std::cout << "GL_VENDOR: " << glGetString(GL_VENDOR) << "\n";
 	std::cout << "GL_RENDERER: " << glGetString(GL_RENDERER) << "\n";
 	std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
 
-
+	
+	
 	while (!glfwWindowShouldClose(window)) //draw loop
 	{
+		glClear(GL_COLOR_BUFFER_BIT); 
+
+// 		if (currentScene == nullptr)
+// 			currentScene = game::SceneManager::GetCurrentScene();
+// 		currentScene->OnUpdate();
+// 		currentScene->OnRender();
+
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		ImGui::ShowDemoWindow();
+		ImGui::ShowStyleEditor();
 
 		ImGui::Render();
 		int display_w, display_h;
