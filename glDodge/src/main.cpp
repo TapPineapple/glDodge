@@ -83,18 +83,21 @@ int main()
 	std::cout << "GL_RENDERER: " << glGetString(GL_RENDERER) << "\n";
 	std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
 
-	game::SceneManager sm;
+	game::SceneManager sm{};
 	sm.RegisterScene<game::TestScene>("TestScene");
-
+	
+	sm.SetScene("TestScene");
+	
 	while (!glfwWindowShouldClose(window)) //draw loop
 	{
-		
 		glClear(GL_COLOR_BUFFER_BIT); 
+		sm.m_CurrentScene->OnUpdate(sm);
+		sm.m_CurrentScene->OnRender();
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-
+		sm.m_CurrentScene->OnDebugRender();
 		ImGui::ShowStyleEditor();
 
 		ImGui::Render();
