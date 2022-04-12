@@ -36,7 +36,7 @@ namespace game
 
 		Scene* m_CurrentScene = nullptr;
 	private:
-		std::vector <std::pair<std::string, std::function<Scene* ()>>> m_Scenes;
+		std::vector <std::pair<std::string, std::function<Scene*()>>> m_Scenes;
 
 	};
 

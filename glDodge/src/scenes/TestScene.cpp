@@ -1,4 +1,6 @@
 #include "TestScene.h"
+#include <imgui/imgui.h>
+
 #include "gl/glew.h"
 
 namespace game
@@ -26,5 +28,22 @@ namespace game
 
 	void TestScene::OnDebugRender()
 	{
+		ImGui::Begin("Collapse V2 - tap#0061");
+		ImGui::BeginTabBar("test");
+		if (ImGui::BeginTabItem("Aimbot"))
+		{
+			bool test = 0;
+			ImGui::Checkbox("Aimbot", &test);
+			float fov = 180.0f;
+			ImGui::SliderFloat("FOV", &fov, 360, 0);
+		}
+
+		ImGui::BeginTabItem("Visuals");
+		ImGui::BeginTabItem("Visuals");
+		ImGui::EndTabItem();
+	
+		ImGui::EndTabBar();
+
+		ImGui::End();
 	}
 }

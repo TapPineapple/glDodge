@@ -29,7 +29,7 @@ void APIENTRY GLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum seve
 		std::cout << "[OpenGL Debug LOW] " << message << "\n";
 		break;
 	case GL_DEBUG_SEVERITY_NOTIFICATION:
-		std::cout << "[OpenGL Debug NOTIFICATION] " << message << "\n";
+		//std::cout << "[OpenGL Debug NOTIFICATION] " << message << "\n";
 		break;
 	}
 }
