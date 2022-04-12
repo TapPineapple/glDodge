@@ -10,7 +10,6 @@ namespace game
 	class SceneManager
 	{
 	public:
-
 		template<typename T>
 		void RegisterScene(const std::string& name)
 		{
@@ -18,13 +17,7 @@ namespace game
 			m_Scenes.push_back(std::make_pair(name, []() { return new T; }));
 		}
 		
-		Scene*& CreateScene(const std::string& name);
-		Scene*& GetCurrent() const;
-		 
-	private:
-		Scene*& m_CurrentScene;
-		std::vector <std::pair<std::string, std::function<Scene*()>>> m_Scenes;
-
+		std::vector <std::pair<std::string, std::function<Scene* ()>>> m_Scenes;
 	};
 
 }

@@ -13,7 +13,6 @@
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\vendor\stb_image\stb_image.cpp" />
-    <ClCompile Include="src\SceneManager.cpp" />
     <ClCompile Include="src\scenes\TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>

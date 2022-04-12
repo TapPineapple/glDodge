@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
 
-class SceneManager;
-
 namespace game
 {
+	class SceneManager;
+
 	class Scene
 	{
 	public:
@@ -14,7 +14,6 @@ namespace game
 		virtual void OnUpdate(SceneManager& sm, float deltaTime = 0) {}
 		virtual void OnRender() {}
 		virtual void OnDebugRender() {}
-	private:
 	};
 
 }

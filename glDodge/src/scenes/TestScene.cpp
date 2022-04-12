@@ -1,18 +1,31 @@
 #include "TestScene.h"
 #include "gl/glew.h"
 
-void game::TestScene::OnUpdate(SceneManager& sm, float deltaTime /*= 0*/)
+namespace game
 {
-	/*throw std::logic_error("The method or operation is not implemented.");*/
-}
 
-void game::TestScene::OnRender()
-{
-// 	throw std::logic_error("The method or operation is not implemented.");
-	glClearColor(0.3f, 0.3f, 0.0f, 1.0f);
-}
+	TestScene::TestScene()
+	{
 
-void game::TestScene::OnDebugRender()
-{
-// 	throw std::logic_error("The method or operation is not implemented."
+	}
+
+	TestScene::~TestScene()
+	{
+
+	}
+
+	void TestScene::OnUpdate(SceneManager& sm, float deltaTime /*= 0*/)
+	{
+
+	}
+
+	void TestScene::OnRender()
+	{
+
+	}
+
+	void TestScene::OnDebugRender()
+	{
+
+	}
 }

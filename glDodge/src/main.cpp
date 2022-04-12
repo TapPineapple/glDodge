@@ -83,8 +83,8 @@ int main()
 	std::cout << "GL_RENDERER: " << glGetString(GL_RENDERER) << "\n";
 	std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
 
-	game::SceneManager sm();
-	sm.RegisterScene<TestScene>("TestScene");
+	game::SceneManager sm;
+	sm.RegisterScene<game::TestScene>("TestScene");
 
 	while (!glfwWindowShouldClose(window)) //draw loop
 	{
