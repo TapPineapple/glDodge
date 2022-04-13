@@ -20,7 +20,7 @@ void APIENTRY GLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum seve
 	{
 	case GL_DEBUG_SEVERITY_HIGH:
 		std::cout << "[OpenGL Debug HIGH] " << message << "\n";
-		_ASSERT(false);
+		__debugbreak();
 		break;
 	case GL_DEBUG_SEVERITY_MEDIUM:
 		std::cout << "[OpenGL Debug MEDIUM] " << message << "\n";
@@ -90,7 +90,6 @@ int main()
 	
 	while (!glfwWindowShouldClose(window)) //draw loop
 	{
-		glClear(GL_COLOR_BUFFER_BIT); 
 		sm.m_CurrentScene->OnUpdate(sm);
 		sm.m_CurrentScene->OnRender();
 
@@ -98,7 +97,7 @@ int main()
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 		sm.m_CurrentScene->OnDebugRender();
-		ImGui::ShowStyleEditor();
+		//ImGui::ShowStyleEditor();
 
 		ImGui::Render();
 		int display_w, display_h;
