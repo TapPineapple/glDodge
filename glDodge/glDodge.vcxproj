@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -168,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="libs\GLEW\include\GL\glew.h" />
     <ClInclude Include="libs\GLFW\include\GLFW\glfw3.h" />
+    <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\SceneManager.h" />
     <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\Shader.h" />
