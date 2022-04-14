@@ -37,6 +37,10 @@ namespace game
 	private:
 		int m_TexID; //the ID of the texture in custom sprite sheet
 
+		glm::mat4 m_Model;
+		glm::mat4 m_View;
+		glm::mat4 m_Proj;
+
 		std::unique_ptr<VertexArray> m_VertexArr; //abstracted vertex array class
 		std::unique_ptr<VertexBuffer> m_VertexBuf; //abstracted vertext buffer class
 		std::unique_ptr<Shader> m_Shader; //abstracted shader class
