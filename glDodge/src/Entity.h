@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <unordered_map>
 
 #include "VertexArray.h"
 #include "VertexBuffer.h"
@@ -11,6 +12,22 @@
 
 namespace game
 {
+	struct EntHandle //entity handle struct
+	{
+		EntHandle()
+		{
+			m_CubeShader = std::make_unique<Shader>();
+		}
+		std::unique_ptr<Shader> m_CubeShader;
+		std::vector<std::unique_ptr<Entity>> m_EntArray;
+		std::unordered_map<std::string, std::unique_ptr<Texture>> m_TextureMap; //the cpp std library is ugly
+
+		void RegisterTexture(std::string name, std::string& path)
+		{
+			m_TextureMap.insert(std::make_pair<std::string&, std::unique_ptr<Texture>>(name, std::make_unique<Texture>(path)));
+		}
+	};
+
 	class Entity
 	{
 	public:
@@ -27,7 +44,7 @@ namespace game
 	class Cube : public Entity //i want this to be pushed into an array of
 	{
 	public:
-		Cube(std::vector<Entity> entArray, glm::vec3 pos, glm::vec3 size, glm::vec3 rot, int texID);
+		Cube(EntHandle& cubeHandle, int texID, glm::vec3 pos, glm::vec3 size, glm::vec3 rot);
 		~Cube();
 
 		void Render() const override;
@@ -43,7 +60,6 @@ namespace game
 
 		std::unique_ptr<VertexArray> m_VertexArr; //abstracted vertex array class
 		std::unique_ptr<VertexBuffer> m_VertexBuf; //abstracted vertext buffer class
-		std::unique_ptr<Shader> m_Shader; //abstracted shader class
-		std::unique_ptr<Texture> m_Texture; //abstracted texture class
+		
 	};
 }
