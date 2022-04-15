@@ -24,6 +24,10 @@ namespace game
 		handle.RegisterTexture("res/textures/test.png" , 1);
 		Cube1->Translate(glm::vec3(0.0f, 0.0f, -3.0f));
 
+		Cube2 = std::make_unique<Cube>(handle, 1, glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0, 0, 0));
+		handle.RegisterTexture("res/textures/test.png", 1);
+		Cube2->Translate(glm::vec3(0.0f, 0.0f, -3.0f));
+
 	}
 
 	TestScene::~TestScene()
@@ -33,7 +37,8 @@ namespace game
 
 	void TestScene::OnUpdate(SceneManager& sm, float deltaTime /*= 0*/)
 	{
-		
+		Cube1->Translate(translate1);
+		Cube2->Translate(translate2);
 	}
 
 	void TestScene::OnRender()
@@ -49,8 +54,8 @@ namespace game
 
 	void TestScene::OnDebugRender()
 	{
-		ImGui::SliderFloat("Fov", &fov, 0.0f, 180);
-		ImGui::SliderFloat3("Translate", &translate.x, -3.0f, 3.0f);
+		ImGui::SliderFloat3("TranslateA", &translate1.x, -5.0f, 5.0f);
+		ImGui::SliderFloat3("TranslateB", &translate2.x, -5.0f, 5.0f);
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	}
 }

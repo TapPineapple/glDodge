@@ -23,16 +23,12 @@ namespace game
 		void OnDebugRender() override;
 
 	private:
-		std::unique_ptr<VertexArray> va;
-		std::unique_ptr<VertexBuffer> vb;
-		std::unique_ptr<Shader> shader;
-		std::unique_ptr<Texture> texture;
-
-		float fov = 45.0f;
-		glm::vec3 translate;
+		glm::vec3 translate1;
+		glm::vec3 translate2;
 
 		EntHandle handle;
 		std::unique_ptr<Cube> Cube1;
+		std::unique_ptr<Cube> Cube2;
 
 	};
 }
