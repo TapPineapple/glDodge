@@ -68,6 +68,11 @@ namespace game
 
 	Cube::~Cube()
 	{
+		for (int i = 0; i < m_Handle.m_EntArry.size(); i++)
+		{
+			if (m_Handle.m_EntArry[i] == this)
+				m_Handle.m_EntArry.erase(m_Handle.m_EntArry.begin() + i); //idk if this works
+		}
 
 	}
 
