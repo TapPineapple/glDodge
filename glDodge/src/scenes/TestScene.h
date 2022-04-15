@@ -8,6 +8,8 @@
 #include "Shader.h"
 #include "VertexBufferLayout.h"
 
+#include "Entity.h"
+
 namespace game
 {
 	class TestScene : public Scene
@@ -28,6 +30,9 @@ namespace game
 
 		float fov = 45.0f;
 		glm::vec3 translate;
+
+		EntHandle handle;
+		std::unique_ptr<Cube> Cube1;
 
 	};
 }

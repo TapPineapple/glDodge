@@ -7,6 +7,8 @@
 
 #include "gl/glew.h"
 
+
+
 namespace game
 {
 
@@ -14,68 +16,15 @@ namespace game
 	{
 		glEnable(GL_BLEND); //setup texture blend or sum
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+		handle.m_CubeShader = std::make_unique<Shader>("res/shaders/cube.shader");
+		handle.m_DefaultProjection = glm::perspective(glm::radians(70.0f), 960.0f / 540.0f, 0.1f, 100.0f);
+		
+		Cube1 = std::make_unique<Cube>(handle, 1, glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0, 0, 0));
+		handle.m_EntArry.push_back(Cube1.get());
+		handle.RegisterTexture("res/textures/test.png" , 1);
+		Cube1->Translate(glm::vec3(0.0f, 0.0f, -3.0f));
 
-		float vertices[] = {
-			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-			 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-			 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-			 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-			-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-		};
-
-		translate = glm::vec3(0.0f, 0.0f, -3.0f);
-
-		va = std::make_unique<VertexArray>();
-		vb = std::make_unique<VertexBuffer>(vertices, sizeof(vertices));
-
-		shader = std::make_unique<Shader>("res/shaders/test.shader");
-		texture = std::make_unique<Texture>("res/textures/test.png");
-
-		VertexBufferLayout layout{};
-
-		va->Bind();
-		layout.Push<float>(3);
-		layout.Push<float>(2);
-		va->AddBuffer(*vb, layout);
-
-		shader->Bind();
-		texture->Bind(); //sampler slot 0
 	}
 
 	TestScene::~TestScene()
@@ -90,27 +39,13 @@ namespace game
 
 	void TestScene::OnRender()
 	{
-		shader->Bind();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 
-		glm::mat4 model = glm::mat4(1.0f);
-		glm::mat4 view = glm::mat4(1.0f);
-		glm::mat4 projection = glm::mat4(1.0f);
-		model = glm::rotate(model, static_cast<float>(glfwGetTime()) * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-		view = glm::translate(view, translate); //0.0f, 0.0f, -3.0f
-		projection = glm::perspective(glm::radians(fov), 960.0f / 540.0f, 0.1f, 100.0f);
-
-
-		shader->SetUniformMat4f("model", model);
-		shader->SetUniformMat4f("view", view);
-		shader->SetUniformMat4f("projection", projection);
-
-		texture->Bind();
-		shader->SetUniform1i("u_Texture", 0);
-
-		va->Bind();
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		for (auto ent : handle.m_EntArry)
+		{
+			ent->Render();
+		}
 	}
 
 	void TestScene::OnDebugRender()
