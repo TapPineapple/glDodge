@@ -4,7 +4,7 @@
 class Texture
 {
 public:
-	Texture(std::string path);
+	Texture(std::string path, int slot = 0);
 	~Texture();
 
 	void Bind(unsigned int slot = 0) const;
@@ -18,4 +18,7 @@ private:
 	unsigned char* m_LocalBuffer;
 	int m_Width, m_Height, m_BPP;
 
+	int s_slot;
+
 };
+

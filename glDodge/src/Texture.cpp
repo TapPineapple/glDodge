@@ -2,9 +2,14 @@
 #include <stb_image/stb_image.h>
 #include <gl/glew.h>
 
-Texture::Texture(std::string path)
+
+
+Texture::Texture(std::string path, int slot)
 	: m_RendererID(0), m_FilePath(path), m_LocalBuffer(nullptr), m_Width(0), m_Height(0), m_BPP(0)
 {
+	if (slot)
+		s_slot = slot;
+
 	stbi_set_flip_vertically_on_load(1);
 	m_LocalBuffer = stbi_load(path.c_str(), &m_Width, &m_Height, &m_BPP, 4);
 	
@@ -31,6 +36,8 @@ Texture::~Texture()
 
 void Texture::Bind(unsigned int slot /*= 0*/) const
 {
+	if (slot == 0)
+		slot = s_slot;
 	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(GL_TEXTURE_2D, m_RendererID);
 }
