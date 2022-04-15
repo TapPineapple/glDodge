@@ -2,8 +2,7 @@
 
 namespace game
 {
-
-	Cube::Cube(std::vector<Entity> entArray, glm::vec3 pos, glm::vec3 size, glm::vec3 rot, int texID)
+	Cube::Cube( int texID, glm::vec3 pos, glm::vec3 size, glm::vec3 rot)
 	{
 
 	}
@@ -29,3 +28,4 @@ namespace game
 	}
 
 }
+
