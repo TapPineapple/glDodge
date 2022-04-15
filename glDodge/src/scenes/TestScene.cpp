@@ -21,7 +21,6 @@ namespace game
 		handle.m_DefaultProjection = glm::perspective(glm::radians(70.0f), 960.0f / 540.0f, 0.1f, 100.0f);
 		
 		Cube1 = std::make_unique<Cube>(handle, 1, glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0, 0, 0));
-		handle.m_EntArry.push_back(Cube1.get());
 		handle.RegisterTexture("res/textures/test.png" , 1);
 		Cube1->Translate(glm::vec3(0.0f, 0.0f, -3.0f));
 

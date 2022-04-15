@@ -62,6 +62,7 @@ namespace game
 		layout.Push<float>(2); //tex coords
 		m_VertexArr->AddBuffer(*m_VertexBuf, layout);
 
+		handle.m_EntArry.push_back(this); //this might have to turn into a map later so that when the deconstructor is called it gets removed from the array
 		
 	}
 
