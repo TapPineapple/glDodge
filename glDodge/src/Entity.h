@@ -30,9 +30,9 @@ namespace game
 
 	//example cube creation 
 	// std::vector<Entity>entArray; 
-	//Cube CubeClass = new CubeClass(entArray, inital position data, texID) //constructor will push_back every ent created
+	//Cube CubeClass = new CubeClass(int texID, glm::vec3 pos, glm::vec3 size, glm::vec3 rot) //constructor will push_back every ent created
 
-	class Cube : public Entity //i want this to be pushed into an array of
+	class Cube : public Entity
 	{
 	public:
 
@@ -48,7 +48,7 @@ namespace game
 		// Parameter: glm::vec3 size
 		// Parameter: glm::vec3 rot
 		//************************************
-		Cube(int texID, glm::vec3 pos, glm::vec3 size, glm::vec3 rot);
+		Cube(int texID, glm::vec3 pos, glm::vec3 size); //note that rotation isn't yet implemented...
 		~Cube();
 
 		void Render() override;

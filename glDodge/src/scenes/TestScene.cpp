@@ -7,7 +7,6 @@
 
 #include <windows.h>
 
-
 #include "gl/glew.h"
 
 extern game::EntHandle e_GameHandle;
@@ -24,11 +23,11 @@ namespace game
 		
 		e_GameHandle.RegisterTexture("res/textures/test.png", 1);
 
-		Cube1 = std::make_unique<Cube>(1, glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0, 0, 0));
+		Cube1 = std::make_unique<Cube>(1, glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
 		
 		Cube1->Translate(glm::vec3(0.0f, 0.0f, -3.0f));
 
-		Cube2 = std::make_unique<Cube>(1, glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0, 0, 0));
+		Cube2 = std::make_unique<Cube>(1, glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
 		Cube2->Translate(glm::vec3(1.0f, 0.0f, -3.0f));
 
 	}
@@ -43,7 +42,7 @@ namespace game
 		Cube1->Translate(glm::vec3(cos(glfwGetTime()), 1.0f, -3.0f));
 		Cube2->Translate(glm::vec3(sin(glfwGetTime()), -1.0f, -3.0f));
 		//Cube2->Translate(translate2);
-		if (GetAsyncKeyState(VK_END))
+		if (GetAsyncKeyState(VK_END) & 1)
 			sm.SetScene("MainGame");
 	}
 

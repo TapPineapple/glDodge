@@ -29,6 +29,7 @@ namespace game
 		glm::vec3 translate1;
 		glm::vec3 translate2;
 
+		
 		std::unique_ptr<Cube> Cube1;
 		std::unique_ptr<Cube> Cube2;
 	};

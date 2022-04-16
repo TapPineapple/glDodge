@@ -23,5 +23,15 @@ namespace game
 		void OnRender() override;
 		void OnDebugRender() override;
 
+	private:
+		std::unique_ptr<Cube> floor1;
+		std::unique_ptr<Cube> floor2;
+		std::unique_ptr<Cube> floor3;
+		std::vector<std::unique_ptr<Cube>> floor; //2d vector
+		glm::vec3 translate1;
+
+		int m_drawCount;
+		float m_SceneTranslate;
+
 	};
 }

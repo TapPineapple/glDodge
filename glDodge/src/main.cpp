@@ -88,13 +88,13 @@ int main()
 
 	
 	e_GameHandle.m_CubeShader = std::make_unique<Shader>("res/shaders/cube.shader");
-	e_GameHandle.m_DefaultProjection = glm::perspective(glm::radians(70.0f), 960.0f / 540.0f, 0.1f, 100.0f);
+	e_GameHandle.m_DefaultProjection = glm::perspective(glm::radians(60.0f), 960.0f / 540.0f, 0.1f, 150.0f);
 
 	game::SceneManager sm{};
 	sm.RegisterScene<game::TestScene>("TestScene");
 	sm.RegisterScene<game::MainGame>("MainGame");
 
-	sm.SetScene("TestScene");
+	sm.SetScene("MainGame");
 	
 
 	float deltaTime = 0.0f;	// Time between current frame and last frame

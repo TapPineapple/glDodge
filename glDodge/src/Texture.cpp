@@ -5,7 +5,7 @@
 
 
 Texture::Texture(std::string path, int slot)
-	: m_RendererID(0), m_FilePath(path), m_LocalBuffer(nullptr), m_Width(0), m_Height(0), m_BPP(0)
+	: m_RendererID(0), m_FilePath(path), m_LocalBuffer(nullptr), m_Width(0), m_Height(0), m_BPP(0), s_slot(0)
 {
 	if (slot)
 		s_slot = slot;

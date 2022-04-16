@@ -4,7 +4,7 @@ extern game::EntHandle e_GameHandle;
 
 namespace game
 {
-	Cube::Cube(int texID, glm::vec3 pos, glm::vec3 size, glm::vec3 rot)
+	Cube::Cube(int texID, glm::vec3 pos, glm::vec3 size)
 		: m_TexID(texID), m_Model(glm::mat4(1.0f)), m_View(glm::mat4(1.0f)), m_Translate(glm::vec3(0.0f))
 	{
 		float vertices[] = {
