@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "EntHandle.h"
 
 namespace game
 {
@@ -11,9 +12,10 @@ namespace game
 		Scene() {}
 		virtual ~Scene() {}
 
-		virtual void OnUpdate(SceneManager& sm, float deltaTime = 0) {}
+		virtual void OnUpdate(SceneManager& sm, float deltaTime) {}
 		virtual void OnRender() {}
 		virtual void OnDebugRender() {}
+
 	};
 
 }

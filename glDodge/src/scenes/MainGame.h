@@ -13,23 +13,15 @@
 
 namespace game
 {
-	class TestScene : public Scene
+	class MainGame : public Scene
 	{
 	public:
-		TestScene();
-		~TestScene();
+		MainGame();
+		~MainGame();
 
 		void OnUpdate(SceneManager& sm, float deltaTime = 0) override;
 		void OnRender() override;
 		void OnDebugRender() override;
 
-	private:
-
-		//game logic
-		glm::vec3 translate1;
-		glm::vec3 translate2;
-
-		std::unique_ptr<Cube> Cube1;
-		std::unique_ptr<Cube> Cube2;
 	};
 }

@@ -1,11 +1,11 @@
 #include "Entity.h"
 
+extern game::EntHandle e_GameHandle;
 
 namespace game
 {
-
-	Cube::Cube(EntHandle& handle, int texID, glm::vec3 pos, glm::vec3 size, glm::vec3 rot)
-		: m_Handle(handle), m_TexID(texID), m_Model(glm::mat4(1.0f)), m_View(glm::mat4(1.0f)), m_Translate(glm::vec3(0.0f))
+	Cube::Cube(int texID, glm::vec3 pos, glm::vec3 size, glm::vec3 rot)
+		: m_TexID(texID), m_Model(glm::mat4(1.0f)), m_View(glm::mat4(1.0f)), m_Translate(glm::vec3(0.0f))
 	{
 		float vertices[] = {
 
@@ -62,31 +62,31 @@ namespace game
 		layout.Push<float>(2); //tex coords
 		m_VertexArr->AddBuffer(*m_VertexBuf, layout);
 
-		handle.m_EntArry.push_back(this); //this might have to turn into a map later so that when the deconstructor is called it gets removed from the array
+		e_GameHandle.m_EntArry.push_back(this); //this might have to turn into a map later so that when the deconstructor is called it gets removed from the array
 		
 	}
 
 	Cube::~Cube()
 	{
-		for (int i = 0; i < m_Handle.m_EntArry.size(); i++)
+		for (int i = 0; i < e_GameHandle.m_EntArry.size(); i++)
 		{
-			if (m_Handle.m_EntArry[i] == this)
-				m_Handle.m_EntArry.erase(m_Handle.m_EntArry.begin() + i); //idk if this works
+			if (e_GameHandle.m_EntArry[i] == this)
+				e_GameHandle.m_EntArry.erase(e_GameHandle.m_EntArry.begin() + i); //idk if this works
 		}
 
 	}
 
 	void Cube::Render()
 	{
-		m_Handle.m_TexMap[m_TexID]->Bind(); //bind texture
-		m_Handle.m_CubeShader->Bind(); //bind shader
+		e_GameHandle.m_TexMap[m_TexID]->Bind(); //bind texture
+		e_GameHandle.m_CubeShader->Bind(); //bind shader
 
 		//m_Model = glm::rotate(m_Model, 0, glm::vec3(0.5f, 1.0f, 0.0f));
 		m_View = glm::translate(glm::mat4(1.0f), m_Translate);
 
-		m_Handle.m_CubeShader->SetUniformMat4f("model", m_Model);
-		m_Handle.m_CubeShader->SetUniformMat4f("view", m_View);
-		m_Handle.m_CubeShader->SetUniformMat4f("projection", m_Handle.m_DefaultProjection);
+		e_GameHandle.m_CubeShader->SetUniformMat4f("model", m_Model);
+		e_GameHandle.m_CubeShader->SetUniformMat4f("view", m_View);
+		e_GameHandle.m_CubeShader->SetUniformMat4f("projection", e_GameHandle.m_DefaultProjection);
 
 		m_VertexArr->Bind();
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -98,9 +98,9 @@ namespace game
 		m_Translate = pos;
 	}
 
-	void Cube::Translate(glm::vec3 pos, glm::vec3 rot)
+	void Cube::RelTranslate(glm::vec3 pos)
 	{
-
+		m_Translate += pos;
 	}
 
 }

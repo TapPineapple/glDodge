@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 
+#include "EntHandle.h"
 #include "Scene.h"
 
 namespace game
@@ -19,7 +20,7 @@ namespace game
 		void RegisterScene(const std::string& name)
 		{
 			std::cout << "[*] Registering Scene: " << name << "\n";
-			m_Scenes.push_back(std::make_pair(name, []() { return new T; }));
+			m_Scenes.push_back(std::make_pair(name, []() { return new T(); }));
 		}
 		
 		void SetScene(const std::string& name)

@@ -17,6 +17,7 @@
     <ClCompile Include="src\VertexArray.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
     <ClCompile Include="src\Entity.cpp" />
+    <ClCompile Include="src\scenes\MainGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\GLEW\include\GL\glew.h" />
@@ -322,6 +323,8 @@
     <ClInclude Include="src\VertexBuffer.h" />
     <ClInclude Include="src\VertexBufferLayout.h" />
     <ClInclude Include="src\Entity.h" />
+    <ClInclude Include="src\scenes\MainGame.h" />
+    <ClInclude Include="src\EntHandle.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vendor\glm\detail\func_common.inl" />

@@ -13,6 +13,9 @@
 #include "Scene.h"
 
 #include "scenes/TestScene.h"
+#include "scenes/MainGame.h"
+
+game::EntHandle e_GameHandle{};
 
 void APIENTRY GLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 {
@@ -83,14 +86,26 @@ int main()
 	std::cout << "GL_RENDERER: " << glGetString(GL_RENDERER) << "\n";
 	std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
 
+	
+	e_GameHandle.m_CubeShader = std::make_unique<Shader>("res/shaders/cube.shader");
+	e_GameHandle.m_DefaultProjection = glm::perspective(glm::radians(70.0f), 960.0f / 540.0f, 0.1f, 100.0f);
+
 	game::SceneManager sm{};
 	sm.RegisterScene<game::TestScene>("TestScene");
-	
+	sm.RegisterScene<game::MainGame>("MainGame");
+
 	sm.SetScene("TestScene");
+	
+
+	float deltaTime = 0.0f;	// Time between current frame and last frame
+	float lastFrame = 0.0f; // Time of last frame
 	
 	while (!glfwWindowShouldClose(window)) //draw loop
 	{
-		sm.m_CurrentScene->OnUpdate(sm);
+		float currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+		sm.m_CurrentScene->OnUpdate(sm, deltaTime);
 		sm.m_CurrentScene->OnRender();
 
 		ImGui_ImplOpenGL3_NewFrame();
