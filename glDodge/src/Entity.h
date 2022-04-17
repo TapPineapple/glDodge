@@ -52,13 +52,14 @@ namespace game
 		~Cube();
 
 		void Render() override;
-		void Translate(glm::vec3 pos);
-		void RelTranslate(glm::vec3 pos);
+		void TranslateTo(glm::vec3 pos);
+		void TranslateBy(glm::vec3 pos);
 
-		glm::vec3 m_Translate;
+		glm::vec3 m_Translate; //what's editable by the user
 	private:
 		int m_TexID;
 
+		glm::vec3 m_RawTranslate; //changes as a result of the m_Translate
 		glm::mat4 m_Model;
 		glm::mat4 m_View;
 

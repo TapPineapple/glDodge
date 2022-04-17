@@ -93,12 +93,12 @@ namespace game
 
 	}
 
-	void Cube::Translate(glm::vec3 pos)
+	void Cube::TranslateTo(glm::vec3 pos)
 	{
 		m_Translate = pos;
 	}
 
-	void Cube::RelTranslate(glm::vec3 pos)
+	void Cube::TranslateBy(glm::vec3 pos)
 	{
 		m_Translate += pos;
 	}

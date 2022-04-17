@@ -23,29 +23,14 @@ namespace game
 
 		e_GameHandle.RegisterTexture("res/textures/test.png", 1);
 		e_GameHandle.RegisterTexture("res/textures/vapor.jpg", 2);
-
-
-//  		for (float i = 0.0f; i < 10.0f; i += 1.0f)
-//  		{
-//  			for (float j = 0.0f; j < 10.0f; j += 1.0f)
-//  			{
-//  				float x = (100.0f * i) - 600.0f;
-//  				float z = (100.0f * j) - 1100.0f;
-//  				floor.push_back(std::make_unique<Cube>(1, glm::vec3(x, -5.0f, z), glm::vec3(100.0f, 0.5f, 100.0f)));
-//  			}
-//  		}
 	
- 		for (float i = 0; i < 5.0f; i += 1.0f)
+ 		for (float i = 0; i < 4.0f; i += 1.0f)
  		{
-			for (float j = 0; j < 3.0f; j += 1.0f)
+			for (float j = 0; j < 4.0f; j += 1.0f)
 			{
-				floor.push_back(std::make_unique<Cube>(2, glm::vec3(-250.0f + (i * 100.0f), -3.0f, (j * -100.0f) - 100.0f), glm::vec3(100.0f, 0.5f, 100.0f)));
+				floor.push_back(std::make_unique<Cube>(2, glm::vec3(-100.0f + (i * 50.0f), -3.0f, (j * -50) - 50), glm::vec3(50.0f, 0.5f, 50.0f)));
 			}
  		}
-
-		//floor1 = std::make_unique<Cube>(1, glm::vec3(-100.0f, -5.0f, -100.0f), glm::vec3(200.0f, 0.5f, 100.0f));
-		//floor2 = std::make_unique<Cube>(1, glm::vec3(-100.0f, -5.0f, -100.0f), glm::vec3(100.0f, 0.5f, 100.0f));
-		//floor3 = std::make_unique<Cube>(1, glm::vec3(0.0f, -5.0f, -100.0f), glm::vec3(100.0f, 0.5f, 100.0f));
 	}
 
 	MainGame::~MainGame()
@@ -63,7 +48,7 @@ namespace game
 
 		for (int i = 0; i < floor.size(); i++)
 		{
-			floor[i]->RelTranslate(glm::vec3(m_SceneTranslate, 0.0f, 0.0f));
+			floor[i]->TranslateBy(glm::vec3(m_SceneTranslate, 0.0f, 0.0f));
 		}
 		//o_Floor->Translate(translate1);
 	}
