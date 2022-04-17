@@ -48,16 +48,19 @@ namespace game
 		// Parameter: glm::vec3 size
 		// Parameter: glm::vec3 rot
 		//************************************
-		Cube(int texID, glm::vec3 pos, glm::vec3 size); //note that rotation isn't yet implemented...
+		Cube(int texID, glm::vec3 _pos, glm::vec3 size); //note that rotation isn't yet implemented...
 		~Cube();
 
 		void Render() override;
 		void TranslateTo(glm::vec3 pos);
 		void TranslateBy(glm::vec3 pos);
 
+		void SetColor(glm::vec4 color);
+
 		glm::vec3 m_Translate; //what's editable by the user
 	private:
 		int m_TexID;
+		glm::vec4 m_ColorShift;
 
 		glm::vec3 m_RawTranslate; //changes as a result of the m_Translate
 		glm::mat4 m_Model;

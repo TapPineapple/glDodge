@@ -4,9 +4,11 @@ extern game::EntHandle e_GameHandle;
 
 namespace game
 {
-	Cube::Cube(int texID, glm::vec3 pos, glm::vec3 size)
-		: m_TexID(texID), m_Model(glm::mat4(1.0f)), m_View(glm::mat4(1.0f)), m_Translate(glm::vec3(0.0f))
+	Cube::Cube(int texID, glm::vec3 _pos, glm::vec3 size)
+		: m_TexID(texID), m_Model(glm::mat4(1.0f)), m_View(glm::mat4(1.0f)), m_Translate(_pos)
 	{
+		
+		glm::vec3 pos(0.0f);
 		float vertices[] = {
 
 			//x             //y             //z              /texture pos
@@ -88,6 +90,8 @@ namespace game
 		e_GameHandle.m_CubeShader->SetUniformMat4f("view", m_View);
 		e_GameHandle.m_CubeShader->SetUniformMat4f("projection", e_GameHandle.m_DefaultProjection);
 
+		e_GameHandle.m_CubeShader->SetUniform4f("u_Color", m_ColorShift);
+
 		m_VertexArr->Bind();
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
@@ -101,6 +105,11 @@ namespace game
 	void Cube::TranslateBy(glm::vec3 pos)
 	{
 		m_Translate += pos;
+	}
+
+	void Cube::SetColor(glm::vec4 color)
+	{
+		m_ColorShift = color;
 	}
 
 }

@@ -49,7 +49,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(960, 540, "GlDodge", NULL, NULL);
+	window = glfwCreateWindow(920, 540, "GlDodge", NULL, NULL);
 
 	if (!window)
 	{
@@ -88,7 +88,7 @@ int main()
 
 	
 	e_GameHandle.m_CubeShader = std::make_unique<Shader>("res/shaders/cube.shader");
-	e_GameHandle.m_DefaultProjection = glm::perspective(glm::radians(60.0f), 960.0f / 540.0f, 0.1f, 150.0f);
+	e_GameHandle.m_DefaultProjection = glm::perspective(glm::radians(60.0f), 960.0f / 540.0f, 0.1f, 100.0f);
 
 	game::SceneManager sm{};
 	sm.RegisterScene<game::TestScene>("TestScene");
