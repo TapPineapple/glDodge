@@ -9,6 +9,7 @@
 #include "Texture.h"
 #include "Shader.h"
 #include "VertexBufferLayout.h"
+#include "IndexBuffer.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -62,13 +63,47 @@ namespace game
 		int m_TexID;
 		glm::vec4 m_ColorShift;
 
-		glm::vec3 m_RawTranslate; //changes as a result of the m_Translate
 		glm::mat4 m_Model;
 		glm::mat4 m_View;
 
 		std::unique_ptr<VertexArray> m_VertexArr; //abstracted vertex array class
 		std::unique_ptr<VertexBuffer> m_VertexBuf; //abstracted vertex buffer class
 		
+	};
+
+	class Plane : public Entity
+	{
+	public:
+
+		
+		//************************************
+		// Method:    Plane
+		// FullName:  game::Plane::Plane
+		// Access:    public 
+		// Returns:   
+		// Qualifier:
+		// Parameter: int texID
+		// Parameter: glm::vec3 pos
+		// Parameter: glm::vec3 size
+		//************************************
+		Plane(int texID, glm::vec3 _pos, glm::vec2 size); //note that rotation isn't yet implemented...
+		~Plane();
+
+		void Render() override;
+		void SetColor(glm::vec4 color);
+
+		glm::vec3 m_Translate; //what's editable by the user
+	private:
+		int m_TexID;
+		glm::vec4 m_ColorShift;
+
+		glm::mat4 m_Model;
+		glm::mat4 m_View;
+
+		std::unique_ptr<VertexArray> m_VertexArr; //abstracted vertex array class
+		std::unique_ptr<VertexBuffer> m_VertexBuf; //abstracted vertex buffer class
+		std::unique_ptr<IndexBuffer> m_IndexBuf;
+
 	};
 
 }

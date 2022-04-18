@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Entity.cpp" />
+    <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\scenes\MainGame.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="libs\GLFW\include\GLFW\glfw3.h" />
     <ClInclude Include="src\EntHandle.h" />
     <ClInclude Include="src\Entity.h" />
+    <ClInclude Include="src\IndexBuffer.h" />
     <ClInclude Include="src\SceneManager.h" />
     <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\scenes\MainGame.h" />

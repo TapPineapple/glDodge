@@ -88,7 +88,9 @@ int main()
 
 	
 	e_GameHandle.m_CubeShader = std::make_unique<Shader>("res/shaders/cube.shader");
+	e_GameHandle.m_PlaneShader = std::make_unique<Shader>("res/shaders/plane.shader");
 	e_GameHandle.m_DefaultProjection = glm::perspective(glm::radians(60.0f), 960.0f / 540.0f, 0.1f, 100.0f);
+	e_GameHandle.m_Default2DProjection = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
 
 	game::SceneManager sm{};
 	sm.RegisterScene<game::TestScene>("TestScene");

@@ -19,7 +19,7 @@ namespace game
 {
 	
 	MainGame::MainGame()
-		: m_drawCount(0.0f), m_SceneTranslate(0.0f)
+		: m_drawCount(0.0f), m_SceneTranslate(0.0f), m_Score(0.0f)
 	{
 		//setup
 
@@ -27,14 +27,19 @@ namespace game
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		e_GameHandle.RegisterTexture("res/textures/test.png", 1);
-		e_GameHandle.RegisterTexture("res/textures/vapor.jpg", 2);
+		e_GameHandle.RegisterTexture("res/textures/cube.png", 2);
+		e_GameHandle.RegisterTexture("res/textures/bg.png", 3);
+		e_GameHandle.RegisterTexture("res/textures/vapor2.png", 4); //credit https://opengameart.org/content/vaporwave-grid
 	
 		
+		m_background = std::make_unique<Plane>(3, glm::vec3(0.0f, -100.0f, 0.0f), glm::vec2(960.0f, 740.0f));
+
+
 		for (float i = 0; i < 4.0f; i += 1.0f) //create floor
 		{
 			for (float j = 0; j < 4.0f; j += 1.0f)
 			{                                                                                                                         
-				m_floor.push_back(std::make_unique<Cube>(2, glm::vec3((-c_FloorSize * 2) + (i * c_FloorSize), -3.0f, -((j * c_FloorSize) + c_FloorSize)), glm::vec3(c_FloorSize, 0.5f, c_FloorSize)));
+				m_floor.push_back(std::make_unique<Cube>(4, glm::vec3((-c_FloorSize * 2) + (i * c_FloorSize), -3.0f, -((j * c_FloorSize) + c_FloorSize)), glm::vec3(c_FloorSize, 0.5f, c_FloorSize)));
 			}
 		}
 
@@ -42,6 +47,7 @@ namespace game
 		{
 			m_cubes.push_back(std::make_unique<Cube>(2, glm::vec3((random(mt) * c_FloorSize * 4) - c_FloorSize * 2, -2.5f, -(random(mt) * c_FloorSize * 4 + 50)), glm::vec3(3.5f, 3.5f, 3.5f)));
 		}
+
 		
 	}
 
@@ -99,6 +105,8 @@ namespace game
 	{
 		glClearColor(0.3f, 0.0f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glDisable(GL_DEPTH_TEST); //for background
+		m_background->Render();
 		glEnable(GL_DEPTH_TEST);
 
 		m_drawCount = 0;
@@ -107,6 +115,9 @@ namespace game
 			m_drawCount++;
 			ent->Render();
 		}
+
+		
+
 	}
 
 	void MainGame::OnDebugRender()

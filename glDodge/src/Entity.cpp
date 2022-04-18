@@ -112,5 +112,70 @@ namespace game
 		m_ColorShift = color;
 	}
 
+	/*---------------------------------------------------*/
+
+	Plane::Plane(int texID, glm::vec3 _pos, glm::vec2 size)
+		: m_TexID(texID), m_Translate(_pos)
+	{
+		glm::vec3 pos = glm::vec3(0.0f);
+		float vertices[16] =
+		{
+			pos.x,          pos.y,          0.0f, 0.0f, //0
+			pos.x + size.x, pos.y,          1.0f, 0.0f, //1
+			pos.x + size.x, pos.y + size.y, 1.0f, 1.0f,//2
+			pos.x,          pos.y + size.y, 0.0f, 1.0f //3
+
+		};
+		unsigned int indices[6] =
+		{
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		m_VertexArr = std::make_unique<VertexArray>();
+		m_VertexBuf = std::make_unique<VertexBuffer>(vertices, sizeof(vertices));
+		m_IndexBuf = std::make_unique<IndexBuffer>(indices, sizeof(indices));
+
+		VertexBufferLayout layout{};
+		m_VertexArr->Bind();
+		layout.Push<float>(2); //vec2 position
+		layout.Push<float>(2); //tex coords
+		m_VertexArr->AddBuffer(*m_VertexBuf, layout);
+
+		//e_GameHandle.m_EntArry.push_back(this);
+	}
+
+	Plane::~Plane()
+	{
+		for (int i = 0; i < e_GameHandle.m_EntArry.size(); i++)
+		{
+			if (e_GameHandle.m_EntArry[i] == this)
+				e_GameHandle.m_EntArry.erase(e_GameHandle.m_EntArry.begin() + i);
+		}
+	}
+
+	void Plane::Render()
+	{
+		e_GameHandle.m_TexMap[m_TexID]->Bind(); //bind texture
+		e_GameHandle.m_PlaneShader->Bind(); //bind shader
+
+		m_Model = glm::translate(glm::mat4(1.0f), m_Translate);
+		m_View = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+
+		e_GameHandle.m_PlaneShader->SetUniformMat4f("model", m_Model);
+		e_GameHandle.m_PlaneShader->SetUniformMat4f("view", m_View);
+		e_GameHandle.m_PlaneShader->SetUniformMat4f("projection", e_GameHandle.m_Default2DProjection);
+
+		m_VertexArr->Bind();
+		m_IndexBuf->Bind();
+
+		glDrawElements(GL_TRIANGLES, m_IndexBuf->GetCount(), GL_UNSIGNED_INT, nullptr);
+	}
+
+	void Plane::SetColor(glm::vec4 color)
+	{
+
+	}
+
 }
 

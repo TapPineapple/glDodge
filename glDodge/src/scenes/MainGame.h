@@ -27,15 +27,19 @@ namespace game
 	private:
 		const int c_CubeCount = 100;
 		const float c_FloorSize = 50.0f;
+		const float m_ScoreRate = 10.0f;
 		 
+		float m_Score;
 
 		glm::vec4 m_CubeColor;
 
-		std::unique_ptr<Cube> testCube;
 		glm::vec3 translate1;
 
 		std::vector<std::unique_ptr<Cube>> m_floor; 
 		std::vector<std::unique_ptr<Cube>> m_cubes;
+
+		std::unique_ptr<Plane> m_background;
+
 		int m_drawCount;
 		float m_SceneSpeed = 30.0f;
 		float m_SceneTranslate;

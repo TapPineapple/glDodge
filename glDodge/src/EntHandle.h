@@ -19,7 +19,9 @@ namespace game
 		std::vector<Entity*> m_EntArry; //array of all ents
 
 		std::unique_ptr<Shader> m_CubeShader; //m_CubeShader = std::make_unique<Shader>("res/shaders/cube.shader"); do this in the other area
+		std::unique_ptr<Shader> m_PlaneShader; 
 		glm::mat4 m_DefaultProjection;
+		glm::mat4 m_Default2DProjection;
 
 
 		std::map<int, std::unique_ptr<Texture>> m_TexMap; //map of all textures

@@ -18,6 +18,7 @@
     <ClCompile Include="src\VertexBuffer.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\scenes\MainGame.cpp" />
+    <ClCompile Include="src\IndexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\GLEW\include\GL\glew.h" />
@@ -325,6 +326,7 @@
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\scenes\MainGame.h" />
     <ClInclude Include="src\EntHandle.h" />
+    <ClInclude Include="src\IndexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vendor\glm\detail\func_common.inl" />
