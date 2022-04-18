@@ -7,7 +7,10 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <iostream>
+#include <windows.h>
+#include <mmsystem.h>
+#include <filesystem>
+
 
 #include "SceneManager.h"
 #include "Scene.h"
@@ -16,6 +19,7 @@
 #include "scenes/MainGame.h"
 #include "scenes/MainMenu.h"
 #include "scenes/HelpMenu.h"
+
 
 game::EntHandle e_GameHandle{};
 
@@ -101,6 +105,8 @@ int main()
 
 	sm.SetScene("MainMenu");
 	
+	std::filesystem::path audioPath = std::filesystem::current_path() / "res\\audio\\airship.wav";
+	PlaySound(audioPath.c_str(), NULL, SND_LOOP | SND_ASYNC);
 
 	float deltaTime = 0.0f;	// Time between current frame and last frame
 	float lastFrame = 0.0f; // Time of last frame
