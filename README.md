@@ -9,3 +9,6 @@ Clone the project into a new directory and open the .sln file in Visual Studio. 
 ## Operating Systems
 At the moment this project only supports Windows but you could pretty easily switch it over by setting up a new keyboard handler and changing the PlaySound() function to be something else. You will also need to build your own binarys for GLFW and GLEW. 
 
+
+## Credit
+Music - https://freemusicarchive.org/music/Visager/Songs_From_An_Unmade_World/Visager_-_Songs_from_an_Unmade_World_-_08_Airship
