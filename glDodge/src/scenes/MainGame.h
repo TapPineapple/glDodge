@@ -29,6 +29,7 @@ namespace game
 		const float c_FloorSize = 50.0f;
 		const float m_ScoreRate = 10.0f;
 		const float	c_Acceleration = 0.1f;
+		const float c_LevelTransportSpeed = 10.0f;
 		 
 		float m_Score;
 
@@ -40,7 +41,7 @@ namespace game
 		std::unique_ptr<Plane> m_background;
 
 		int m_drawCount;
-		float m_SceneSpeed = 30.0f;
+		float m_SceneSpeed;
 		float m_Acceleration;
 		float m_MaxHozizontalSpeed;
 		float m_SceneTranslate;

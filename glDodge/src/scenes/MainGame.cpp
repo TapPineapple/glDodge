@@ -19,7 +19,7 @@ namespace game
 {
 	
 	MainGame::MainGame()
-		: m_drawCount(0.0f), m_SceneTranslate(0.0f), m_Score(0.0f), m_MaxHozizontalSpeed(20.0f), m_Acceleration(200.0f)
+		: m_drawCount(0.0f), m_SceneTranslate(0.0f), m_Score(0.0f), m_MaxHozizontalSpeed(20.0f), m_Acceleration(200.0f), m_SceneSpeed(0.0f), m_CubeColor(0.0f)
 	{
 		//setup
 
@@ -79,6 +79,10 @@ namespace game
 			{
 				m_SceneTranslate += m_Acceleration * deltaTime;
 			}
+			if (m_SceneTranslate <= 0.1f) //remove drift
+			{
+				m_SceneTranslate = 0.0f;
+			}
 		}
 
 		if (GetAsyncKeyState(VK_ESCAPE) & 1)
@@ -86,9 +90,13 @@ namespace game
 			sm.SetScene("MainMenu");
 			return;
 		}
+
 		//scene updating
+		m_background->SetColor(m_CubeColor);
+
 		for (int i = 0; i < m_floor.size(); i++) //move floor
 		{
+			m_floor[i]->SetColor(m_CubeColor); //update color
 			m_floor[i]->TranslateBy(glm::vec3(m_SceneTranslate * deltaTime, 0.0f, m_SceneSpeed * deltaTime));
 			if (m_floor[i]->m_Translate.z > c_FloorSize) //rests floor once it's behind the camera
 			{
@@ -106,10 +114,36 @@ namespace game
 			}
 		}
 
+		//upate score
+		m_Score += m_ScoreRate * deltaTime;
+
+		//update scene speed
+		if (m_Score <= 50.0f) //easy
+		{
+			if (m_SceneSpeed < 30.0f)
+				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
+
+		}
+		else if (m_Score >= 50.0f && m_Score <= 100.0f) //medium
+		{
+			
+			if (m_SceneSpeed < 50.0f)
+				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
+			m_CubeColor = { 0.0f, 139.0f, 10.0f, 0.0f };
+
+
+		}
+		else if (m_Score >= 100.0f) //hard
+		{
+			m_CubeColor = { 251.0f, 0.0f, 0.0f, 0.0f };
+			if (m_SceneSpeed < 100.0f)
+				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
+		}
+
 		for (int i = 0; i < m_cubes.size(); i++) //move cubes
 		{
 			m_cubes[i]->TranslateBy(glm::vec3(m_SceneTranslate * deltaTime, 0.0f, m_SceneSpeed * deltaTime));
-			m_cubes[i]->SetColor(m_CubeColor);
+			m_cubes[i]->SetColor(m_CubeColor); //update color
 
 			if (m_cubes[i]->m_Translate.z > 5.0f)
 			{
@@ -117,13 +151,14 @@ namespace game
 				m_cubes[i]->m_Translate.x = (random(mt) * c_FloorSize * 4) - c_FloorSize * 2;
 			}
 
-
+			/*
 			if (m_cubes[i]->m_Translate.z > -3.5f && m_cubes[i]->m_Translate.z < 0.0f && m_cubes[i]->m_Translate.x > -3.5f && m_cubes[i]->m_Translate.x < 0.0f)
 			{
 				//if collison detected
 				sm.SetScene("MainGame");
 				return;
 			}
+			*/
 		}
 
 	}
@@ -157,6 +192,7 @@ namespace game
 		GetCursorPos(&p);
 		ScreenToClient(GetActiveWindow(), &p);
 		ImGui::Text("Cursor Pos: %i, %i", p.x, p.y);
+		ImGui::Text("Score: %.f", m_Score);
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		ImGui::End();
 	}

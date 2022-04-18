@@ -166,6 +166,9 @@ namespace game
 		e_GameHandle.m_PlaneShader->SetUniformMat4f("view", m_View);
 		e_GameHandle.m_PlaneShader->SetUniformMat4f("projection", e_GameHandle.m_Default2DProjection);
 
+		e_GameHandle.m_PlaneShader->SetUniform4f("u_Color", m_ColorShift);
+
+
 		m_VertexArr->Bind();
 		m_IndexBuf->Bind();
 
@@ -174,7 +177,7 @@ namespace game
 
 	void Plane::SetColor(glm::vec4 color)
 	{
-
+		m_ColorShift = color;
 	}
 
 }
