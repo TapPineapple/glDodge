@@ -1,6 +1,5 @@
 #include "HelpMenu.h"
 
-#include <GLFW/glfw3.h>
 #include <imgui/imgui.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -8,6 +7,9 @@
 #include <windows.h>
 
 #include "gl/glew.h"
+#include "GLFW/glfw3.h"
+
+
 
 extern game::EntHandle e_GameHandle;
 
@@ -22,7 +24,6 @@ namespace game
 
 		e_GameHandle.RegisterTexture("res/textures/info.png", 1);
 		hm = std::make_unique<Plane>(1, glm::vec3(0, 0, 0), glm::vec2(960.0f, 540.0f));
-
 
 	}
 
@@ -51,10 +52,13 @@ namespace game
 			float relposX = static_cast<float>(p.x) / width;
 			float relposY = static_cast<float>(p.y) / height;
 
+			
+
 			if (relposX > 0.028f && relposX < 0.118f && relposY > 0.801f && relposY < 0.941f)
 			{
 				//clicked back button
 				sm.SetScene("MainMenu");
+				return;
 			}
 		}
 	}

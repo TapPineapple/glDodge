@@ -1,6 +1,6 @@
 #include "MainGame.h"
 
-#include <GLFW/glfw3.h>
+
 #include <imgui/imgui.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -19,7 +19,7 @@ namespace game
 {
 	
 	MainGame::MainGame()
-		: m_drawCount(0.0f), m_SceneTranslate(0.0f), m_Score(0.0f), m_MaxHozizontalSpeed(20.0f), m_Acceleration(0.0f)
+		: m_drawCount(0.0f), m_SceneTranslate(0.0f), m_Score(0.0f), m_MaxHozizontalSpeed(20.0f), m_Acceleration(200.0f)
 	{
 		//setup
 
@@ -52,13 +52,13 @@ namespace game
 
 	MainGame::~MainGame()
 	{
-
+		glDisable(GL_DEPTH_TEST);
 	}
 
 	void MainGame::OnUpdate(SceneManager& sm, float deltaTime /*= 0*/)
 	{
-		m_Acceleration = 200.0f;
-		 //improve this
+
+		//input
 		if (GetAsyncKeyState(VK_LEFT) && m_SceneTranslate < m_MaxHozizontalSpeed)
 		{
 			m_SceneTranslate += m_Acceleration * deltaTime;
@@ -81,8 +81,12 @@ namespace game
 			}
 		}
 
-		
-
+		if (GetAsyncKeyState(VK_ESCAPE) & 1)
+		{
+			sm.SetScene("MainMenu");
+			return;
+		}
+		//scene updating
 		for (int i = 0; i < m_floor.size(); i++) //move floor
 		{
 			m_floor[i]->TranslateBy(glm::vec3(m_SceneTranslate * deltaTime, 0.0f, m_SceneSpeed * deltaTime));
@@ -115,7 +119,11 @@ namespace game
 
 
 			if (m_cubes[i]->m_Translate.z > -3.5f && m_cubes[i]->m_Translate.z < 0.0f && m_cubes[i]->m_Translate.x > -3.5f && m_cubes[i]->m_Translate.x < 0.0f)
+			{
+				//if collison detected
 				sm.SetScene("MainGame");
+				return;
+			}
 		}
 
 	}

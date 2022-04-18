@@ -88,7 +88,6 @@ int main()
 	std::cout << "GL_RENDERER: " << glGetString(GL_RENDERER) << "\n";
 	std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
 
-	
 	e_GameHandle.m_CubeShader = std::make_unique<Shader>("res/shaders/cube.shader");
 	e_GameHandle.m_PlaneShader = std::make_unique<Shader>("res/shaders/plane.shader");
 	e_GameHandle.m_DefaultProjection = glm::perspective(glm::radians(60.0f), 960.0f / 540.0f, 0.1f, 100.0f);

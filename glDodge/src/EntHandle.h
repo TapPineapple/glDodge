@@ -22,7 +22,7 @@ namespace game
 		std::unique_ptr<Shader> m_PlaneShader; 
 		glm::mat4 m_DefaultProjection;
 		glm::mat4 m_Default2DProjection;
-
+		//GLFWwindow* hwind;
 
 		std::map<int, std::unique_ptr<Texture>> m_TexMap; //map of all textures
 		void RegisterTexture(std::string path, int texID)

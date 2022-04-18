@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include <windows.h>
-#include <WindowsX.h>
 
 #include "gl/glew.h"
 
@@ -33,6 +32,12 @@ namespace game
 
 	void MainMenu::OnUpdate(SceneManager& sm, float deltaTime /*= 0*/)
 	{
+		if (GetAsyncKeyState(VK_ESCAPE) & 1)
+		{
+			exit(EXIT_SUCCESS);
+			return;
+		}
+
 		if (GetAsyncKeyState(VK_LBUTTON))
 		{
 			RECT rect;
@@ -55,13 +60,16 @@ namespace game
 			{
 				//clicked Play
 				sm.SetScene("MainGame");
+				return;
 			}
 
 			if (relposX > 0.886f && relposX < 0.976f && relposY > 0.802f && relposY < 0.942f)
 			{
 				//clicked Help button
 				sm.SetScene("HelpMenu");
+				return;
 			}
+
 
 		}
 
