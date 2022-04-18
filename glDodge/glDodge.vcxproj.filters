@@ -19,6 +19,8 @@
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\scenes\MainGame.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />
+    <ClCompile Include="src\scenes\MainMenu.cpp" />
+    <ClCompile Include="src\scenes\HelpMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\GLEW\include\GL\glew.h" />
@@ -327,6 +329,8 @@
     <ClInclude Include="src\scenes\MainGame.h" />
     <ClInclude Include="src\EntHandle.h" />
     <ClInclude Include="src\IndexBuffer.h" />
+    <ClInclude Include="src\scenes\MainMenu.h" />
+    <ClInclude Include="src\scenes\HelpMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vendor\glm\detail\func_common.inl" />

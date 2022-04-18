@@ -14,6 +14,8 @@
 
 #include "scenes/TestScene.h"
 #include "scenes/MainGame.h"
+#include "scenes/MainMenu.h"
+#include "scenes/HelpMenu.h"
 
 game::EntHandle e_GameHandle{};
 
@@ -95,8 +97,10 @@ int main()
 	game::SceneManager sm{};
 	sm.RegisterScene<game::TestScene>("TestScene");
 	sm.RegisterScene<game::MainGame>("MainGame");
+	sm.RegisterScene<game::MainMenu>("MainMenu");
+	sm.RegisterScene<game::HelpMenu>("HelpMenu");
 
-	sm.SetScene("MainGame");
+	sm.SetScene("MainMenu");
 	
 
 	float deltaTime = 0.0f;	// Time between current frame and last frame
@@ -107,13 +111,23 @@ int main()
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-		sm.m_CurrentScene->OnUpdate(sm, deltaTime);
-		sm.m_CurrentScene->OnRender();
+		if (sm.m_CurrentScene)
+		{
+			sm.m_CurrentScene->OnUpdate(sm, deltaTime);
+			sm.m_CurrentScene->OnRender();
+		}
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-		sm.m_CurrentScene->OnDebugRender();
+#ifdef _DEBUG
+		if (sm.m_CurrentScene)
+		{
+			sm.m_CurrentScene->OnDebugRender();
+		}
+#endif // DEBUG
+
+		
 		//ImGui::ShowStyleEditor();
 
 		ImGui::Render();
