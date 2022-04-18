@@ -129,13 +129,13 @@ namespace game
 			
 			if (m_SceneSpeed < 50.0f)
 				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
-			m_CubeColor = { 0.0f, 139.0f, 10.0f, 0.0f };
+			//m_CubeColor = { 0.0f, 139.0f, 10.0f, 0.0f };
 
 
 		}
 		else if (m_Score >= 100.0f) //hard
 		{
-			m_CubeColor = { 251.0f, 0.0f, 0.0f, 0.0f };
+			//m_CubeColor = { 251.0f, 0.0f, 0.0f, 0.0f };
 			if (m_SceneSpeed < 100.0f)
 				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
 		}
@@ -151,14 +151,14 @@ namespace game
 				m_cubes[i]->m_Translate.x = (random(mt) * c_FloorSize * 4) - c_FloorSize * 2;
 			}
 
-			/*
+			
 			if (m_cubes[i]->m_Translate.z > -3.5f && m_cubes[i]->m_Translate.z < 0.0f && m_cubes[i]->m_Translate.x > -3.5f && m_cubes[i]->m_Translate.x < 0.0f)
 			{
 				//if collison detected
 				sm.SetScene("MainGame");
 				return;
 			}
-			*/
+			
 		}
 
 	}
