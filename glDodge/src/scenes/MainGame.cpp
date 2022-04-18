@@ -19,7 +19,7 @@ namespace game
 {
 	
 	MainGame::MainGame()
-		: m_drawCount(0.0f), m_SceneTranslate(0.0f), m_Score(0.0f)
+		: m_drawCount(0.0f), m_SceneTranslate(0.0f), m_Score(0.0f), m_MaxHozizontalSpeed(20.0f), m_Acceleration(0.0f)
 	{
 		//setup
 
@@ -48,7 +48,6 @@ namespace game
 			m_cubes.push_back(std::make_unique<Cube>(2, glm::vec3((random(mt) * c_FloorSize * 4) - c_FloorSize * 2, -2.5f, -(random(mt) * c_FloorSize * 4 + 50)), glm::vec3(3.5f, 3.5f, 3.5f)));
 		}
 
-		
 	}
 
 	MainGame::~MainGame()
@@ -58,15 +57,35 @@ namespace game
 
 	void MainGame::OnUpdate(SceneManager& sm, float deltaTime /*= 0*/)
 	{
-		m_SceneTranslate = 0; //improve this
-		if (GetAsyncKeyState(VK_LEFT))
-			m_SceneTranslate = 20.0f * deltaTime;
-		if (GetAsyncKeyState(VK_RIGHT))
-			m_SceneTranslate = -20.0f * deltaTime;
+		m_Acceleration = 200.0f;
+		 //improve this
+		if (GetAsyncKeyState(VK_LEFT) && m_SceneTranslate < m_MaxHozizontalSpeed)
+		{
+			m_SceneTranslate += m_Acceleration * deltaTime;
+
+		} 
+		else if (GetAsyncKeyState(VK_RIGHT) && m_SceneTranslate > -m_MaxHozizontalSpeed)
+		{
+			
+			m_SceneTranslate -= m_Acceleration * deltaTime;
+		}
+		if (!GetAsyncKeyState(VK_RIGHT) && !GetAsyncKeyState(VK_LEFT))
+		{
+			if (m_SceneTranslate > 0.0f)
+			{
+				m_SceneTranslate -= m_Acceleration * deltaTime;
+			}
+			if (m_SceneTranslate < 0.0f)
+			{
+				m_SceneTranslate += m_Acceleration * deltaTime;
+			}
+		}
+
+		
 
 		for (int i = 0; i < m_floor.size(); i++) //move floor
 		{
-			m_floor[i]->TranslateBy(glm::vec3(m_SceneTranslate, 0.0f, m_SceneSpeed * deltaTime));
+			m_floor[i]->TranslateBy(glm::vec3(m_SceneTranslate * deltaTime, 0.0f, m_SceneSpeed * deltaTime));
 			if (m_floor[i]->m_Translate.z > c_FloorSize) //rests floor once it's behind the camera
 			{
 				m_floor[i]->m_Translate.z = -(c_FloorSize * 3); 
@@ -85,7 +104,7 @@ namespace game
 
 		for (int i = 0; i < m_cubes.size(); i++) //move cubes
 		{
-			m_cubes[i]->TranslateBy(glm::vec3(m_SceneTranslate, 0.0f, m_SceneSpeed * deltaTime));
+			m_cubes[i]->TranslateBy(glm::vec3(m_SceneTranslate * deltaTime, 0.0f, m_SceneSpeed * deltaTime));
 			m_cubes[i]->SetColor(m_CubeColor);
 
 			if (m_cubes[i]->m_Translate.z > 5.0f)
@@ -126,6 +145,10 @@ namespace game
 		ImGui::ColorEdit4("Color", &m_CubeColor.r);
 		//ImGui::SliderFloat3("Translate1", &translate1.x, -10.0f, 10.0f);
 		ImGui::Text("DrawCount %i", m_drawCount);
+		POINT p;
+		GetCursorPos(&p);
+		ScreenToClient(GetActiveWindow(), &p);
+		ImGui::Text("Cursor Pos: %i, %i", p.x, p.y);
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		ImGui::End();
 	}
