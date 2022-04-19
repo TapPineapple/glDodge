@@ -123,40 +123,40 @@ namespace game
 			}
 		}
 
-		//upate score
+		//update score
 		m_Score += m_ScoreRate * deltaTime;
 
 		//update scene speed
 		if (m_Score <= 50.0) //easy
 		{
 			
-			if (m_SceneSpeed < 30.0f)
+			if (m_SceneSpeed < 250.0f)
 				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
 
 		}
-		else if (m_Score >= 50.0f && m_Score <= 100.0f) //medium
+		else if (m_Score >= 250.0f && m_Score <= 450.0f) //medium
 		{
 			m_FloorTexID = 6;
 			m_CubeTexID = 5;
 			
 			m_background->SetTex(4);
 			m_background->m_Translate.y = -30.0f;
-			//m_background->SetColor(glm::vec4(0.0f, 200.0f, 0.0f, 0.0f));
+			
 
 			if (m_SceneSpeed < 50.0f)
 				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
-			//m_CubeColor = { 0.0f, 139.0f, 10.0f, 0.0f };
+			
 
 
 		}
-		else if (m_Score >= 100.0f) //hard
+		else if (m_Score >= 450.0f) //hard
 		{
 			m_FloorTexID = 9;
 			m_CubeTexID = 8;
 			m_background->m_Translate.y = -50.0f;
 
 			m_background->SetTex(7);
-			//m_CubeColor = { 251.0f, 0.0f, 0.0f, 0.0f };
+			
 			if (m_SceneSpeed < 100.0f)
 				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
 		}
@@ -175,12 +175,12 @@ namespace game
 			
 			if (m_cubes[i]->m_Translate.z > -3.5f && m_cubes[i]->m_Translate.z < 0.0f && m_cubes[i]->m_Translate.x > -3.5f && m_cubes[i]->m_Translate.x < 0.0f)
 			{
-				//if collison detected
+				//if collision detected
 				sm.SetScene("GameOver");
 				return;
 			}
 
-			if (m_Score >= 150.0f)
+			if (m_Score >= 1337.0f)
 			{
 				sm.SetScene("GameWin");
 				return;

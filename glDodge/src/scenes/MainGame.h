@@ -27,7 +27,7 @@ namespace game
 	private:
 		const int c_CubeCount = 100;
 		const float c_FloorSize = 50.0f;
-		const float m_ScoreRate = 10.0f;
+		const float m_ScoreRate = 20.0f;
 		const float	c_Acceleration = 0.1f;
 		const float c_LevelTransportSpeed = 10.0f;
 		 
