@@ -152,6 +152,7 @@
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\scenes\GameOver.cpp" />
+    <ClCompile Include="src\scenes\GameWin.cpp" />
     <ClCompile Include="src\scenes\HelpMenu.cpp" />
     <ClCompile Include="src\scenes\MainGame.cpp" />
     <ClCompile Include="src\scenes\MainMenu.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="src\SceneManager.h" />
     <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\scenes\GameOver.h" />
+    <ClInclude Include="src\scenes\GameWin.h" />
     <ClInclude Include="src\scenes\HelpMenu.h" />
     <ClInclude Include="src\scenes\MainGame.h" />
     <ClInclude Include="src\scenes\MainMenu.h" />

@@ -20,6 +20,7 @@
 #include "scenes/MainMenu.h"
 #include "scenes/HelpMenu.h"
 #include "scenes/GameOver.h"
+#include "scenes/GameWin.h"
 
 
 game::EntHandle e_GameHandle{};
@@ -110,6 +111,7 @@ int main()
 	sm.RegisterScene<game::MainMenu>("MainMenu");
 	sm.RegisterScene<game::HelpMenu>("HelpMenu");
 	sm.RegisterScene<game::GameOver>("GameOver");
+	sm.RegisterScene<game::GameWin>("GameWin");
 
 
 	sm.SetScene("MainMenu");
@@ -133,12 +135,12 @@ int main()
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-#ifdef _DEBUG
+
 		if (sm.m_CurrentScene)
 		{
 			sm.m_CurrentScene->OnDebugRender();
 		}
-#endif // DEBUG
+
 
 		
 		//ImGui::ShowStyleEditor();

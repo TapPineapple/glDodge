@@ -22,6 +22,7 @@
     <ClCompile Include="src\scenes\MainMenu.cpp" />
     <ClCompile Include="src\scenes\HelpMenu.cpp" />
     <ClCompile Include="src\scenes\GameOver.cpp" />
+    <ClCompile Include="src\scenes\GameWin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\GLEW\include\GL\glew.h" />
@@ -334,6 +335,7 @@
     <ClInclude Include="src\scenes\HelpMenu.h" />
     <ClInclude Include="src\scenes\GameOver.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="src\scenes\GameWin.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vendor\glm\detail\func_common.inl" />
