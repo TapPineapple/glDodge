@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <filesystem>
 #include <windows.h>
 
 #include "gl/glew.h"
@@ -26,20 +27,28 @@ namespace game
 		glEnable(GL_BLEND); //setup texture blend or sum
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		e_GameHandle.RegisterTexture("res/textures/test.png", 1);
-		e_GameHandle.RegisterTexture("res/textures/cube.png", 2);
-		e_GameHandle.RegisterTexture("res/textures/bg.png", 3);
-		e_GameHandle.RegisterTexture("res/textures/vapor2.png", 4); //credit https://opengameart.org/content/vaporwave-grid
+		e_GameHandle.RegisterTexture("res/textures/bg.png", 1);
+		e_GameHandle.RegisterTexture("res/textures/cube1.png", 2);
+		e_GameHandle.RegisterTexture("res/textures/vapor1.png", 3); //credit https://opengameart.org/content/vaporwave-grid
+		e_GameHandle.RegisterTexture("res/textures/bg.png", 4);
+		e_GameHandle.RegisterTexture("res/textures/cube2.png", 5);
+		e_GameHandle.RegisterTexture("res/textures/vapor2.png", 6);
+		e_GameHandle.RegisterTexture("res/textures/bg.png", 7);
+		e_GameHandle.RegisterTexture("res/textures/cube3.png", 8);
+		e_GameHandle.RegisterTexture("res/textures/vapor3.png", 9);
+
+		m_FloorTexID = 3;
+		m_CubeTexID = 2;
 	
 		
-		m_background = std::make_unique<Plane>(3, glm::vec3(0.0f, -100.0f, 0.0f), glm::vec2(960.0f, 740.0f));
+		m_background = std::make_unique<Plane>(1, glm::vec3(0.0f, -100.0f, 0.0f), glm::vec2(960.0f, 740.0f));
 
 
 		for (float i = 0; i < 4.0f; i += 1.0f) //create floor
 		{
 			for (float j = 0; j < 4.0f; j += 1.0f)
 			{                                                                                                                         
-				m_floor.push_back(std::make_unique<Cube>(4, glm::vec3((-c_FloorSize * 2) + (i * c_FloorSize), -3.0f, -((j * c_FloorSize) + c_FloorSize)), glm::vec3(c_FloorSize, 0.5f, c_FloorSize)));
+				m_floor.push_back(std::make_unique<Cube>(3, glm::vec3((-c_FloorSize * 2) + (i * c_FloorSize), -3.0f, -((j * c_FloorSize) + c_FloorSize)), glm::vec3(c_FloorSize, 0.5f, c_FloorSize)));
 			}
 		}
 
@@ -92,11 +101,11 @@ namespace game
 		}
 
 		//scene updating
-		m_background->SetColor(m_CubeColor);
+		
 
 		for (int i = 0; i < m_floor.size(); i++) //move floor
 		{
-			m_floor[i]->SetColor(m_CubeColor); //update color
+			m_floor[i]->SetTex(m_FloorTexID);
 			m_floor[i]->TranslateBy(glm::vec3(m_SceneTranslate * deltaTime, 0.0f, m_SceneSpeed * deltaTime));
 			if (m_floor[i]->m_Translate.z > c_FloorSize) //rests floor once it's behind the camera
 			{
@@ -118,23 +127,33 @@ namespace game
 		m_Score += m_ScoreRate * deltaTime;
 
 		//update scene speed
-		if (m_Score <= 50.0f) //easy
+		if (m_Score <= 500.0f) //easy
 		{
+			
 			if (m_SceneSpeed < 30.0f)
 				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
 
 		}
-		else if (m_Score >= 50.0f && m_Score <= 100.0f) //medium
+		else if (m_Score >= 500.0f && m_Score <= 1000.0f) //medium
 		{
+			m_FloorTexID = 6;
+			m_CubeTexID = 5;
 			
+			m_background->SetColor(glm::vec4(0.0f, 200.0f, 0.0f, 0.0f));
+
 			if (m_SceneSpeed < 50.0f)
 				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
 			//m_CubeColor = { 0.0f, 139.0f, 10.0f, 0.0f };
 
 
 		}
-		else if (m_Score >= 100.0f) //hard
+		else if (m_Score >= 1500.0f) //hard
 		{
+			m_background->SetColor(glm::vec4(200.0f, 0.0f, 0.0f, 0.0f));
+
+			m_FloorTexID = 9;
+			m_CubeTexID = 8;
+
 			//m_CubeColor = { 251.0f, 0.0f, 0.0f, 0.0f };
 			if (m_SceneSpeed < 100.0f)
 				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
@@ -142,8 +161,8 @@ namespace game
 
 		for (int i = 0; i < m_cubes.size(); i++) //move cubes
 		{
+			m_cubes[i]->SetTex(m_CubeTexID);
 			m_cubes[i]->TranslateBy(glm::vec3(m_SceneTranslate * deltaTime, 0.0f, m_SceneSpeed * deltaTime));
-			m_cubes[i]->SetColor(m_CubeColor); //update color
 
 			if (m_cubes[i]->m_Translate.z > 5.0f)
 			{
@@ -155,7 +174,7 @@ namespace game
 			if (m_cubes[i]->m_Translate.z > -3.5f && m_cubes[i]->m_Translate.z < 0.0f && m_cubes[i]->m_Translate.x > -3.5f && m_cubes[i]->m_Translate.x < 0.0f)
 			{
 				//if collison detected
-				sm.SetScene("MainGame");
+				sm.SetScene("GameOver");
 				return;
 			}
 			

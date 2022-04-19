@@ -35,6 +35,9 @@ namespace game
 
 		glm::vec4 m_CubeColor;
 
+		int m_FloorTexID;
+		int m_CubeTexID;
+
 		std::vector<std::unique_ptr<Cube>> m_floor; 
 		std::vector<std::unique_ptr<Cube>> m_cubes;
 

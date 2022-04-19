@@ -1,4 +1,4 @@
-#include "HelpMenu.h"
+#include "GameOver.h"
 
 #include <imgui/imgui.h>
 #include <glm/glm.hpp>
@@ -16,29 +16,29 @@ extern game::EntHandle e_GameHandle;
 namespace game
 {
 
-	HelpMenu::HelpMenu()
-
+	GameOver::GameOver()
 	{
 		glEnable(GL_BLEND); //setup texture blend or sum
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		e_GameHandle.RegisterTexture("res/textures/info.png", 1);
-		hm = std::make_unique<Plane>(1, glm::vec3(0, 0, 0), glm::vec2(960.0f, 540.0f));
+		e_GameHandle.RegisterTexture("res/textures/gameover.png", 1);
+		gameOverbg = std::make_unique<Plane>(1, glm::vec3(0, 0, 0), glm::vec2(960.0f, 540.0f));
 
 	}
 
-	HelpMenu::~HelpMenu()
+	GameOver::~GameOver()
 	{
 
 	}
 
-	void HelpMenu::OnUpdate(SceneManager& sm, float deltaTime /*= 0*/)
+	void GameOver::OnUpdate(SceneManager& sm, float deltaTime /*= 0*/)
 	{
 		if (GetAsyncKeyState(VK_ESCAPE) & 1)
 		{
 			sm.SetScene("MainMenu");
 			return;
 		}
+
 		if (GetAsyncKeyState(VK_LBUTTON))
 		{
 			RECT rect;
@@ -57,26 +57,32 @@ namespace game
 			float relposX = static_cast<float>(p.x) / width;
 			float relposY = static_cast<float>(p.y) / height;
 
-			
 
-			if (relposX > 0.028f && relposX < 0.118f && relposY > 0.801f && relposY < 0.941f)
+
+			if (relposX > 0.873f && relposX < 0.946f && relposY > 0.035f && relposY < 0.149f)
 			{
 				//clicked back button
 				sm.SetScene("MainMenu");
 				return;
 			}
+			if (relposX > 0.341f && relposX < 0.56f && relposY > 0.756f && relposY < 0.886f)
+			{
+				//clicked restart button
+				sm.SetScene("MainGame");
+				return;
+			}
 		}
 	}
 
-	void HelpMenu::OnRender()
+	void GameOver::OnRender()
 	{
 		glEnable(GL_BLEND); //setup texture blend or sum
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		hm->Render();
+		gameOverbg->Render();
 	}
 
-	void HelpMenu::OnDebugRender()
+	void GameOver::OnDebugRender()
 	{
 		ImGui::Begin("Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 		RECT rect;
