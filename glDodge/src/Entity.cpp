@@ -107,6 +107,11 @@ namespace game
 		m_Translate += pos;
 	}
 
+	void Cube::SetTex(int texID)
+	{
+		m_TexID = texID;
+	}
+
 	void Cube::SetColor(glm::vec4 color)
 	{
 		m_ColorShift = color;
@@ -173,6 +178,11 @@ namespace game
 		m_IndexBuf->Bind();
 
 		glDrawElements(GL_TRIANGLES, m_IndexBuf->GetCount(), GL_UNSIGNED_INT, nullptr);
+	}
+
+	void Plane::SetTex(int texID)
+	{
+		m_TexID = texID;
 	}
 
 	void Plane::SetColor(glm::vec4 color)

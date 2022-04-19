@@ -10,7 +10,7 @@
 #include <windows.h>
 #include <mmsystem.h>
 #include <filesystem>
-
+#include <thread>
 
 #include "SceneManager.h"
 #include "Scene.h"
@@ -19,6 +19,7 @@
 #include "scenes/MainGame.h"
 #include "scenes/MainMenu.h"
 #include "scenes/HelpMenu.h"
+#include "scenes/GameOver.h"
 
 
 game::EntHandle e_GameHandle{};
@@ -41,6 +42,12 @@ void APIENTRY GLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum seve
 		//std::cout << "[OpenGL Debug NOTIFICATION] " << message << "\n";
 		break;
 	}
+}
+
+void PlayMusic()
+{
+	std::filesystem::path audioPath = std::filesystem::current_path() / "res\\audio\\airship.wav";
+	PlaySound(audioPath.c_str(), NULL, SND_LOOP | SND_ASYNC);
 }
 
 int main()
@@ -102,11 +109,12 @@ int main()
 	sm.RegisterScene<game::MainGame>("MainGame");
 	sm.RegisterScene<game::MainMenu>("MainMenu");
 	sm.RegisterScene<game::HelpMenu>("HelpMenu");
+	sm.RegisterScene<game::GameOver>("GameOver");
+
 
 	sm.SetScene("MainMenu");
 	
-	std::filesystem::path audioPath = std::filesystem::current_path() / "res\\audio\\airship.wav";
-	PlaySound(audioPath.c_str(), NULL, SND_LOOP | SND_ASYNC);
+	std::thread hMusic(PlayMusic);
 
 	float deltaTime = 0.0f;	// Time between current frame and last frame
 	float lastFrame = 0.0f; // Time of last frame

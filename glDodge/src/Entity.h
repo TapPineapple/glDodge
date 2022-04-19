@@ -56,6 +56,7 @@ namespace game
 		void TranslateTo(glm::vec3 pos);
 		void TranslateBy(glm::vec3 pos);
 
+		void SetTex(int texID);
 		void SetColor(glm::vec4 color);
 
 		glm::vec3 m_Translate; //what's editable by the user
@@ -90,6 +91,7 @@ namespace game
 		~Plane();
 
 		void Render() override;
+		void SetTex(int texID);
 		void SetColor(glm::vec4 color);
 
 		glm::vec3 m_Translate; //what's editable by the user

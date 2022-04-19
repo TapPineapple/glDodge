@@ -21,6 +21,7 @@
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\scenes\MainMenu.cpp" />
     <ClCompile Include="src\scenes\HelpMenu.cpp" />
+    <ClCompile Include="src\scenes\GameOver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\GLEW\include\GL\glew.h" />
@@ -331,6 +332,8 @@
     <ClInclude Include="src\IndexBuffer.h" />
     <ClInclude Include="src\scenes\MainMenu.h" />
     <ClInclude Include="src\scenes\HelpMenu.h" />
+    <ClInclude Include="src\scenes\GameOver.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vendor\glm\detail\func_common.inl" />
@@ -469,5 +472,11 @@
     <None Include="src\vendor\glm\gtx\vector_angle.inl" />
     <None Include="src\vendor\glm\gtx\vector_query.inl" />
     <None Include="src\vendor\glm\gtx\wrap.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="glDodge.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="cube1.ico" />
   </ItemGroup>
 </Project>
