@@ -27,13 +27,13 @@ namespace game
 		glEnable(GL_BLEND); //setup texture blend or sum
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		e_GameHandle.RegisterTexture("res/textures/bg.png", 1);
+		e_GameHandle.RegisterTexture("res/textures/bg1.png", 1);
 		e_GameHandle.RegisterTexture("res/textures/cube1.png", 2);
 		e_GameHandle.RegisterTexture("res/textures/vapor1.png", 3); //credit https://opengameart.org/content/vaporwave-grid
-		e_GameHandle.RegisterTexture("res/textures/bg.png", 4);
+		e_GameHandle.RegisterTexture("res/textures/bg2.png", 4);
 		e_GameHandle.RegisterTexture("res/textures/cube2.png", 5);
 		e_GameHandle.RegisterTexture("res/textures/vapor2.png", 6);
-		e_GameHandle.RegisterTexture("res/textures/bg.png", 7);
+		e_GameHandle.RegisterTexture("res/textures/bg3.png", 7);
 		e_GameHandle.RegisterTexture("res/textures/cube3.png", 8);
 		e_GameHandle.RegisterTexture("res/textures/vapor3.png", 9);
 
@@ -127,19 +127,21 @@ namespace game
 		m_Score += m_ScoreRate * deltaTime;
 
 		//update scene speed
-		if (m_Score <= 500.0f) //easy
+		if (m_Score <= 50.0) //easy
 		{
 			
 			if (m_SceneSpeed < 30.0f)
 				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
 
 		}
-		else if (m_Score >= 500.0f && m_Score <= 1000.0f) //medium
+		else if (m_Score >= 50.0f && m_Score <= 100.0f) //medium
 		{
 			m_FloorTexID = 6;
 			m_CubeTexID = 5;
 			
-			m_background->SetColor(glm::vec4(0.0f, 200.0f, 0.0f, 0.0f));
+			m_background->SetTex(4);
+			m_background->m_Translate.y = -30.0f;
+			//m_background->SetColor(glm::vec4(0.0f, 200.0f, 0.0f, 0.0f));
 
 			if (m_SceneSpeed < 50.0f)
 				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
@@ -147,13 +149,13 @@ namespace game
 
 
 		}
-		else if (m_Score >= 1500.0f) //hard
+		else if (m_Score >= 100.0f) //hard
 		{
-			m_background->SetColor(glm::vec4(200.0f, 0.0f, 0.0f, 0.0f));
-
 			m_FloorTexID = 9;
 			m_CubeTexID = 8;
+			m_background->m_Translate.y = -50.0f;
 
+			m_background->SetTex(7);
 			//m_CubeColor = { 251.0f, 0.0f, 0.0f, 0.0f };
 			if (m_SceneSpeed < 100.0f)
 				m_SceneSpeed += c_LevelTransportSpeed * deltaTime;
@@ -177,6 +179,12 @@ namespace game
 				sm.SetScene("GameOver");
 				return;
 			}
+
+			if (m_Score >= 150.0f)
+			{
+				sm.SetScene("GameWin");
+				return;
+			}
 			
 		}
 
@@ -197,12 +205,29 @@ namespace game
 			ent->Render();
 		}
 
-		
-
 	}
 
 	void MainGame::OnDebugRender()
 	{
+		ImGuiStyle& style = ImGui::GetStyle();
+		style.WindowBorderSize = 0.0f;
+	
+		
+		ImGui::SetNextWindowBgAlpha(0.0f); // Transparent background
+ 		ImGui::Begin("Score", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
+		const ImGuiViewport* viewport = ImGui::GetMainViewport();
+		ImVec2 work_pos = viewport->WorkPos; // Use work area to avoid menu-bar/task-bar, if any!
+		ImVec2 work_size = viewport->WorkSize;
+		ImVec2 window_pos, window_pos_pivot;
+		window_pos.x = (work_pos.x + 20);
+		window_pos.y = (work_pos.y + 10);
+		ImGui::SetWindowFontScale(work_size.x / 200);
+		ImGui::SetWindowPos(window_pos);
+
+ 		ImGui::Text("SCORE:%.f", m_Score);
+ 		ImGui::End();
+		
+		#ifdef _DEBUG
 		ImGui::Begin("Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 		ImGui::ColorEdit4("Color", &m_CubeColor.r);
 		//ImGui::SliderFloat3("Translate1", &translate1.x, -10.0f, 10.0f);
@@ -214,6 +239,7 @@ namespace game
 		ImGui::Text("Score: %.f", m_Score);
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		ImGui::End();
+#endif
 	}
 
 }

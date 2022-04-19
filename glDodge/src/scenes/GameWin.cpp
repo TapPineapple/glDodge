@@ -1,4 +1,4 @@
-#include "GameOver.h"
+#include "GameWin.h"
 
 #include <imgui/imgui.h>
 #include <glm/glm.hpp>
@@ -16,22 +16,22 @@ extern game::EntHandle e_GameHandle;
 namespace game
 {
 
-	GameOver::GameOver()
+	GameWin::GameWin()
 	{
 		glEnable(GL_BLEND); //setup texture blend or sum
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		e_GameHandle.RegisterTexture("res/textures/gameover.png", 1);
-		gameOverbg = std::make_unique<Plane>(1, glm::vec3(0, 0, 0), glm::vec2(960.0f, 540.0f));
+		e_GameHandle.RegisterTexture("res/textures/win.png", 1);
+		gameWinBG = std::make_unique<Plane>(1, glm::vec3(0, 0, 0), glm::vec2(960.0f, 540.0f));
 
 	}
 
-	GameOver::~GameOver()
+	GameWin::~GameWin()
 	{
 
 	}
 
-	void GameOver::OnUpdate(SceneManager& sm, float deltaTime /*= 0*/)
+	void GameWin::OnUpdate(SceneManager& sm, float deltaTime /*= 0*/)
 	{
 		if (GetAsyncKeyState(VK_ESCAPE) & 1)
 		{
@@ -74,18 +74,18 @@ namespace game
 		}
 	}
 
-	void GameOver::OnRender()
+	void GameWin::OnRender()
 	{
 		glEnable(GL_BLEND); //setup texture blend or sum
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		gameOverbg->Render();
+		gameWinBG->Render();
 	}
 
-	void GameOver::OnDebugRender()
+	void GameWin::OnDebugRender()
 	{
 
-		#ifdef _DEBUG
+#ifdef _DEBUG
 		ImGui::Begin("Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 		RECT rect;
 		int width = 0;

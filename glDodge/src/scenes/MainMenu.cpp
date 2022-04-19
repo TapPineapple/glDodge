@@ -84,7 +84,12 @@ namespace game
 	void MainMenu::OnDebugRender()
 	{
 
-		ImGui::Begin("Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+		#ifdef _DEBUG
+
+		ImGui::ShowStyleEditor();
+		
+	ImGui::Begin("Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+
 		RECT rect;
 		int width = 0;
 		int height = 0;;
@@ -103,5 +108,6 @@ namespace game
 		ImGui::Text("Cursor Pos: %f, %f", relposX, relposY);
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		ImGui::End();
+#endif
 	}
 }
