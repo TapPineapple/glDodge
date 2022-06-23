@@ -153,7 +153,8 @@ namespace game
 	Plane::~Plane()
 	{
 		for (int i = 0; i < e_GameHandle.m_EntArry.size(); i++)
-		{
+		{ 
+			//removes entity from global entity list when it's destructor is called
 			if (e_GameHandle.m_EntArry[i] == this)
 				e_GameHandle.m_EntArry.erase(e_GameHandle.m_EntArry.begin() + i);
 		}

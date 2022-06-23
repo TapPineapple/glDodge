@@ -141,8 +141,6 @@ int main()
 			sm.m_CurrentScene->OnDebugRender();
 		}
 
-
-		
 		//ImGui::ShowStyleEditor();
 
 		ImGui::Render();

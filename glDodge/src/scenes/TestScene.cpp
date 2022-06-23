@@ -22,7 +22,6 @@ namespace game
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 		e_GameHandle.RegisterTexture("res/textures/test.png", 1);
-
 		Cube1 = std::make_unique<Cube>(1, glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
 		
 		Cube1->TranslateTo(glm::vec3(0.0f, 0.0f, -3.0f));
