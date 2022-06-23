@@ -147,7 +147,7 @@ namespace game
 		layout.Push<float>(2); //tex coords
 		m_VertexArr->AddBuffer(*m_VertexBuf, layout);
 
-		//e_GameHandle.m_EntArry.push_back(this);
+		//e_GameHandle.m_EntArry.push_back(this); 
 	}
 
 	Plane::~Plane()

@@ -22,6 +22,8 @@
 #include "scenes/GameOver.h"
 #include "scenes/GameWin.h"
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 game::EntHandle e_GameHandle{};
 
@@ -105,6 +107,14 @@ int main()
 	e_GameHandle.m_DefaultProjection = glm::perspective(glm::radians(60.0f), 960.0f / 540.0f, 0.1f, 100.0f);
 	e_GameHandle.m_Default2DProjection = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
 
+	//init freetype
+	if (FT_Init_FreeType(&e_GameHandle.m_FT))
+	{
+		std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+		return -1;
+	}
+
+	//register scenes
 	game::SceneManager sm{};
 	sm.RegisterScene<game::TestScene>("TestScene");
 	sm.RegisterScene<game::MainGame>("MainGame");
