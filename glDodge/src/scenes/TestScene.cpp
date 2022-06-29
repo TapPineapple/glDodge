@@ -18,16 +18,22 @@ namespace game
 	TestScene::TestScene()
 	
 	{
-		glEnable(GL_BLEND); //setup texture blend or sum
+		glEnable(GL_CULL_FACE);
+		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 		e_GameHandle.RegisterTexture("res/textures/test.png", 1);
+
+
 		Cube1 = std::make_unique<Cube>(1, glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
 		
 		Cube1->TranslateTo(glm::vec3(0.0f, 0.0f, -3.0f));
 
 		Cube2 = std::make_unique<Cube>(1, glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
+
 		Cube2->TranslateTo(glm::vec3(1.0f, 0.0f, -3.0f));
+
+		myText = std::make_unique<Text>(2, "kill me", 300.0f, 200.0f, glm::vec3(0.5f, 0.5f, 0.3f), 1.0f, "res/fonts/8bitOperatorPlus8-Regular.ttf");
 
 	}
 
@@ -54,6 +60,7 @@ namespace game
 		{
 			ent->Render();
 		}
+		myText->Render();
 	}
 
 	void TestScene::OnDebugRender()

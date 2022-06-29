@@ -21,10 +21,9 @@ namespace game
 	public:
 		std::vector<Entity*> m_EntArry; //array of all ents
 
-		FT_Library m_FT;
-
 		std::unique_ptr<Shader> m_CubeShader; //m_CubeShader = std::make_unique<Shader>("res/shaders/cube.shader"); do this in the other area
-		std::unique_ptr<Shader> m_PlaneShader; 
+		std::unique_ptr<Shader> m_PlaneShader;
+		std::unique_ptr<Shader> m_TextShader;
 		glm::mat4 m_DefaultProjection;
 		glm::mat4 m_Default2DProjection;
 		//GLFWwindow* hwind;

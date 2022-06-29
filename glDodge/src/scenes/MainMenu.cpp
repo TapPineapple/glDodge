@@ -37,6 +37,12 @@ namespace game
 			exit(EXIT_SUCCESS);
 			return;
 		}
+		
+		if (GetAsyncKeyState(VK_DELETE))
+		{
+			sm.SetScene("TestScene");
+			return;
+		}
 
 		if (GetAsyncKeyState(VK_LBUTTON))
 		{

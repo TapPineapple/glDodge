@@ -32,5 +32,6 @@ namespace game
 		
 		std::unique_ptr<Cube> Cube1;
 		std::unique_ptr<Cube> Cube2;
+		std::unique_ptr<Text> myText;
 	};
 }

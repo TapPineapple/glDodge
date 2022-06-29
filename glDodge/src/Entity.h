@@ -16,6 +16,12 @@
 
 #include "EntHandle.h"
 
+struct Character {
+	unsigned int TextureID; // ID handle of the glyph texture
+	glm::ivec2   Size;      // Size of glyph
+	glm::ivec2   Bearing;   // Offset from baseline to left/top of glyph
+	unsigned int Advance;   // Horizontal offset to advance to next glyph
+};
 
 namespace game
 {
@@ -105,6 +111,33 @@ namespace game
 		std::unique_ptr<VertexArray> m_VertexArr; //abstracted vertex array class
 		std::unique_ptr<VertexBuffer> m_VertexBuf; //abstracted vertex buffer class
 		std::unique_ptr<IndexBuffer> m_IndexBuf;
+
+	};
+
+	class Text : public Entity
+	{
+	public:
+
+
+		//************************************
+		//https://learnopengl.com/In-Practice/Text-Rendering (code used from there to save time)
+		Text(int texID, std::string text, float _x, float _y, glm::vec3 color, float scale, const char* filepath);
+		~Text();
+
+		void Render() override;
+		void SetText(std::string& text);
+		void SetColor(glm::vec4 color);
+
+		glm::vec3 m_Translate; //what's editable by the user
+		float m_Scale;
+	private:
+		int m_TexID;
+		glm::vec3 m_Color;
+		std::string m_Text;
+		std::map<GLchar, Character> Characters;
+		glm::mat4 m_Proj;
+
+		unsigned int m_VAO, m_VBO; //screw abstraction
 
 	};
 
