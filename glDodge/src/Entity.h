@@ -121,7 +121,7 @@ namespace game
 
 		//************************************
 		//https://learnopengl.com/In-Practice/Text-Rendering (code used from there to save time)
-		Text(int texID, std::string text, float _x, float _y, glm::vec3 color, float scale, const char* filepath);
+		Text(std::string text, float _x, float _y, glm::vec3 color, float scale, const char* filepath);
 		~Text();
 
 		void Render() override;
@@ -137,7 +137,7 @@ namespace game
 		std::map<GLchar, Character> Characters;
 		glm::mat4 m_Proj;
 
-		unsigned int m_VAO, m_VBO; //screw abstraction
+		unsigned int m_VAO, m_VBO, m_Texture; //screw abstraction
 
 	};
 

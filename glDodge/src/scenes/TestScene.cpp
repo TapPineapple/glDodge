@@ -33,7 +33,7 @@ namespace game
 
 		Cube2->TranslateTo(glm::vec3(1.0f, 0.0f, -3.0f));
 
-		myText = std::make_unique<Text>(2, "kill me", 300.0f, 200.0f, glm::vec3(0.5f, 0.5f, 0.3f), 1.0f, "res/fonts/8bitOperatorPlus8-Regular.ttf");
+		myText = std::make_unique<Text>("kill me", 300.0f, 200.0f, glm::vec3(0.5f, 0.5f, 0.3f), 1.0f, "res/fonts/8bitOperatorPlus8-Regular.ttf");
 
 	}
 

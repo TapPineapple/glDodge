@@ -11,8 +11,10 @@
 #include "gl/glew.h"
 
 extern game::EntHandle e_GameHandle;
+extern game::GlobalScores e_ScoreData;
 
-std::random_device rd;
+
+std::random_device rd; //fancy random number generation
 std::mt19937 mt(rd());
 std::uniform_real_distribution<double> random(0, 1);
 
@@ -42,7 +44,6 @@ namespace game
 	
 		
 		m_background = std::make_unique<Plane>(1, glm::vec3(0.0f, -100.0f, 0.0f), glm::vec2(960.0f, 740.0f));
-
 
 		for (float i = 0; i < 4.0f; i += 1.0f) //create floor
 		{
@@ -173,15 +174,24 @@ namespace game
 			}
 
 			
-			if (m_cubes[i]->m_Translate.z > -3.5f && m_cubes[i]->m_Translate.z < 0.0f && m_cubes[i]->m_Translate.x > -3.5f && m_cubes[i]->m_Translate.x < 0.0f)
+			if (m_cubes[i]->m_Translate.z > -3.5f && m_cubes[i]->m_Translate.z < 0.0f && m_cubes[i]->m_Translate.x > -3.5f && m_cubes[i]->m_Translate.x < 0.0f) //this was really aids to get working for some reason...
 			{
 				//if collision detected
+				e_ScoreData.lastScore = static_cast<int>(m_Score); //ik that this is a sin, and i'm sorry Mr. Yob...
+				if (e_ScoreData.lastScore > e_ScoreData.highScore) //last score will bit INTMIN first
+					e_ScoreData.highScore = e_ScoreData.lastScore; //update high score
+
 				sm.SetScene("GameOver");
 				return;
 			}
 
 			if (m_Score >= 1337.0f)
 			{
+				e_ScoreData.lastScore = static_cast<int>(m_Score); //ik that this is a sin, and i'm sorry Mr. Yob...
+				if (e_ScoreData.lastScore > e_ScoreData.highScore) //last score will bit INTMIN first
+					e_ScoreData.highScore = e_ScoreData.lastScore; //update high score
+
+
 				sm.SetScene("GameWin");
 				return;
 			}

@@ -27,5 +27,10 @@ namespace game
 
 		//game logic
 		std::unique_ptr<Plane> gameOverbg;
+		std::unique_ptr<Text> scoreText;
+		std::unique_ptr<Text> leaderboardText;
+
+		std::vector<std::unique_ptr<Text>> lbPlaces;
+
 	};
 }

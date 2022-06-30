@@ -2,7 +2,7 @@
 #include <filesystem>
 
 extern game::EntHandle e_GameHandle;
-
+extern game::GlobalScores e_ScoreData;
 
 namespace game
 {
@@ -196,11 +196,10 @@ namespace game
 	/*---------------------------------------------------*/
 	//https://learnopengl.com/In-Practice/Text-Rendering
 
-	Text::Text(int texID, std::string text, float _x, float _y, glm::vec3 color, float scale, const char* fontpath)
-		: m_TexID(texID), m_Text(text), m_Translate(glm::vec3(_x, _y, 1.0f)), m_Color(color), m_Scale(scale)
+	Text::Text(std::string text, float _x, float _y, glm::vec3 color, float scale, const char* fontpath)
+		: m_Text(text), m_Translate(glm::vec3(_x, _y, 1.0f)), m_Color(color), m_Scale(scale)
 	{
 		m_Proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f);
-
 
 		e_GameHandle.m_TextShader->Bind();
 		e_GameHandle.m_TextShader->SetUniformMat4f("projection", m_Proj);
@@ -211,8 +210,6 @@ namespace game
 		{
 			std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;	
 		}
-
-		
 
 		// load font as face
 		FT_Face face;
@@ -236,9 +233,8 @@ namespace game
 					continue;
 				}
 				// generate texture
-				unsigned int texture;
-				glGenTextures(1, &texture);
-				glBindTexture(GL_TEXTURE_2D, texture);
+				glGenTextures(1, &m_Texture);
+				glBindTexture(GL_TEXTURE_2D, m_Texture);
 				glTexImage2D(
 					GL_TEXTURE_2D,
 					0,
@@ -257,7 +253,7 @@ namespace game
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 				// now store character for later use
 				Character character = {
-					texture,
+					m_Texture,
 					glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
 					glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
 					static_cast<unsigned int>(face->glyph->advance.x)
@@ -300,7 +296,7 @@ namespace game
 	{
 		e_GameHandle.m_TextShader->Bind();
 		e_GameHandle.m_TextShader->SetUniform3f("textColor", m_Color.r, m_Color.g, m_Color.b);
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE0 + m_TexID);
 		glBindVertexArray(m_VAO);
 
 		float x = m_Translate.x;
@@ -339,7 +335,7 @@ namespace game
 			x += (ch.Advance >> 6) * m_Scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
 		}
 		glBindVertexArray(0);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		//glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	void Text::SetText(std::string& text)

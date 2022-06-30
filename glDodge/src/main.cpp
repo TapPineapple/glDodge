@@ -26,6 +26,8 @@
 #include FT_FREETYPE_H
 
 game::EntHandle e_GameHandle{};
+game::GlobalScores e_ScoreData{};
+
 
 void APIENTRY GLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 {
@@ -108,6 +110,9 @@ int main()
 
 	e_GameHandle.m_DefaultProjection = glm::perspective(glm::radians(60.0f), 960.0f / 540.0f, 0.1f, 100.0f);
 	e_GameHandle.m_Default2DProjection = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
+
+	//set score
+	e_ScoreData.highScore = MININT; //idk where this macro definition comes from but thank you :)
 
 	//register scenes
 	game::SceneManager sm{};
